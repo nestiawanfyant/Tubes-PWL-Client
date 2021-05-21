@@ -1,14 +1,17 @@
 import React from "react";
+import { createUseStyles } from "react-jss";
 
+//bootstrap
 import { Image } from "react-bootstrap";
 
+// assets
 import "./CardKelas.css";
-import { createUseStyles } from "react-jss";
 import { Color } from "../../assets/color";
-import { Mola } from "../../assets/image";
+import "../../assets/css/font.css";
+
+// icon
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
-import "../../assets/css/font.css";
 
 const CardKelas = ({ title, dosen, gambar }) => {
   const classes = styles();

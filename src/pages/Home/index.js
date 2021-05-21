@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Row } from "react-bootstrap";
-
-//components
-import { CardKelas } from "../../components";
-
+import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
-import { createUseStyles } from "react-jss";
+import { Row,Button } from "react-bootstrap";
+//assets
 import { Color } from "../../assets/color";
-
-// Route
+//components
+import { CardKelas } from "../../components";
+// pages
 import { ViewCard } from "../index";
 
 const Home = () => {

@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Link } from 'react-router-dom';
-
+import {createUseStyles} from 'react-jss';
 // bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Button, Form, Row, Col, Card } from 'react-bootstrap';
-
-// stylesheet
+// assets
 import { Color } from "../../assets/color";
-import {createUseStyles} from 'react-jss';
 import "../../assets/css/font.css";
-
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from 'react-icons/bi';
 

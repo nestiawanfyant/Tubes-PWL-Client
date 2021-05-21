@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
-// bootstrap CSS
+import {createUseStyles} from 'react-jss';
+// bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Button, Modal, Form, Row, Col, Card } from 'react-bootstrap';
-
-// stylesheet
+// assets
 import { Color } from "../../assets/color";
-import {createUseStyles} from 'react-jss';
-import { BiPlus } from 'react-icons/bi';
 import "../../assets/css/font.css";
-
 // icon
-import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from 'react-icons/bi';
-
+import { BiBookBookmark, BiDotsVerticalRounded, BiSend, BiPlus } from 'react-icons/bi';
 // component
 import { CardListMateri } from "../../components"
 
@@ -47,9 +42,6 @@ const ViewCard = () => {
                 </Col>
                 <Col sm={9}>
                     
-                    <CardListMateri /> <br />
-                    <CardListMateri /> <br />
-                    <CardListMateri /> <br />
                     <CardListMateri /> <br />
 
                 </Col>

@@ -1,7 +1,10 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
+//components
 import { TextHeader, Orang, ValidasiOrang } from "../../components";
+//assets
 import { Color } from "../../assets/color";
+//icon
 import { GiCoffeeCup, GiRobe } from "react-icons/gi";
 
 function ListPeserta() {

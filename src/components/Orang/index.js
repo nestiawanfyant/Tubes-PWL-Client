@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Image, Popover, Button, Modal, Col, Row } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
-
-import { FiXSquare, FiMoreVertical } from "react-icons/fi";
-
+//bootstrap
+import { Image, Popover, Button, Modal, Col, Row } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+//assets
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
+//icon
+import { FiXSquare, FiMoreVertical } from "react-icons/fi";
+
 
 const Orang = ({ nama, gambar, type }) => {
   // State

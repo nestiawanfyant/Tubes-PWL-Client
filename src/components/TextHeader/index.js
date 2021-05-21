@@ -1,7 +1,7 @@
 import React from "react";
-
-// import "./CardKelas.css";
 import { createUseStyles } from "react-jss";
+
+//assets
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
 

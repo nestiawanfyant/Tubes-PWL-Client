@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Image, Popover, Button, Modal, Col, Row } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
-
-import { BiUserCheck, BiUserX } from "react-icons/bi";
-
+//bootstrap
+import { Image, Popover, Button, Modal, Col, Row } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+//assets
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
+//icon
+import { BiUserCheck, BiUserX } from "react-icons/bi";
+
 
 const ValidasiOrang = ({ nama, gambar, motivasi }) => {
   // State

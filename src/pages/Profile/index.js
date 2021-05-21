@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-// import '.././App.css';
+// import '.././app.css';
 
 // bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 
 // stylesheet
-import ".././assets/styles.css"
+// import {ProfileCss} from './assets'
 
 // page for route
 
-export default class Home extends Component {
+export default class Profile extends Component {
 
     constructor(props){
         super(props);
@@ -22,7 +22,7 @@ export default class Home extends Component {
     render() {
         return ( 
             <div>
-                <p> Home </p>
+                <p> Profile </p>
             </div>
         )
     }

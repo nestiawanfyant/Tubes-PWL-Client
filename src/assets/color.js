@@ -5,4 +5,6 @@ export const Color = {
     secondary: '#8395a7',
     blackDoff: '#2B2B2B',
     secondaryPrimary: '#d6d6d6',
+    softGray: '#F2F2F2',
+    blackLight: '#444444',
 }

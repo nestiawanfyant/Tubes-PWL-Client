@@ -12,12 +12,13 @@ import { BiPlus } from 'react-icons/bi';
 import "../assets/css/font.css";
 
 // page for route
-import {Home, Profile} from '../pages'
+import {Home, Profile, ViewCard} from '../pages'
 
 const NavBar = () => {
 
     // State
     const [show, setShow] = useState(false);
+    const [viewNavClass, setViewNavClass] = useState(true);
 
     // function
     const handleClose = () => setShow(false);
@@ -35,6 +36,18 @@ const NavBar = () => {
             </div>
 
             <ul className={ classes.ulnavigation }>
+              <li className={ classes.liNavigationClass } >
+                <Link className={ classes.linkNavigationTextClass} > Stream </Link>
+              </li>
+              <li className={ classes.liNavigationClass } >
+                <Link className={ classes.linkNavigationTextClass} > ClassWork </Link>
+              </li>
+              <li className={ classes.liNavigationClass } >
+                <Link className={ classes.linkNavigationTextClass} > Title </Link>
+              </li>
+            </ul>
+
+            <ul className={ classes.ulnavigationClass }>
               <li className={ classes.liNavigation }>
                 <Link className={ classes.linkNavigationText }>
                   <Button className={ classes.addClassBTN } onClick={handleShow}> <BiPlus className={ classes.BiPlus } /> </Button>
@@ -78,6 +91,7 @@ const NavBar = () => {
               <Route exact path="/" component={ Home } />
               <Route path="/profile" component={ Profile } />
               <Route path="/kelas/:name" component={ Profile } />
+              <Route path="/viewCard" component={ ViewCard }/>
             </Switch>
           </div>
       </Router>
@@ -139,8 +153,22 @@ const styles = createUseStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  ulnavigationClass: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   liNavigation: {
     listStyle: 'none',
+    paddingRight: 10,
+    paddingLeft: 10,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  liNavigationClass: {
+    listStyle: 'none',
+    marginTop:10,
     paddingRight: 10,
     paddingLeft: 10,
     marginRight: 10,
@@ -159,6 +187,16 @@ const styles = createUseStyles({
       flexDirection: 'row',
       justifyContent: 'space-between',
     }
+  },
+  linkNavigationTextClass: {
+    color: Color.blackDoff,
+    fontFamily: 'DM Sans',
+    marginBottom: 0, 
+    '&:hover': {
+      textDecoration: 'none',
+      color: Color.primary,
+      borderBottom: '2px solid' + Color.primary,
+      paddingBottom: 23,
+    }
   }
-
 });

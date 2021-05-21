@@ -11,8 +11,8 @@ import { Button } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
 import { Color } from "../../assets/color";
 
-// stylesheet
-// import '../../assets/css/HomeCss/index.css'
+// Route
+import { ViewCard } from "../index";
 
 const Home = () => {
     const classes = styles()
@@ -21,34 +21,15 @@ const Home = () => {
         <div className={ classes.container }>
             <p className={classes.homeText}> Daftar Kelas </p>
             <div className={ classes.flexCard }>
-                <Link className={ classes.textDecorationNone }>
+                <Link to={ "/viewCard" } className={ classes.textDecorationNone }>
                     <CardKelas className={ classes.cardStyle } />
                 </Link>
-                <Link className={ classes.textDecorationNone }>
+                <Link to={ "/viewCard" } className={ classes.textDecorationNone }>
                     <CardKelas className={ classes.cardStyle } />
                 </Link>
-                <Link className={ classes.textDecorationNone }>
+                <Link to={ "/viewCard" } className={ classes.textDecorationNone }>
                     <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-
+                </Link>                
             </div>
         </div>
     )

@@ -21,6 +21,7 @@ const Home = () => {
     return ( 
         <div>
             <p className={classes.homeText}> Home </p>
+            <CardKelas/>
         </div>
     )
     
@@ -31,7 +32,7 @@ export default Home;
 
 const styles = createUseStyles({
     homeText: {
-        fontSize: 30, 
+        fontSize: 40, 
         color: '#004d40',
     }
 });

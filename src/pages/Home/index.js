@@ -15,7 +15,6 @@ import {createUseStyles} from 'react-jss'
 
 
 const Home = () => {
-
     const classes = styles()
 
     return ( 

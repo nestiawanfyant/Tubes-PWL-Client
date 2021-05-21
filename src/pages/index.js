@@ -1,5 +1,6 @@
 import Home from './Home'
 import Profile from './Profile'
-import ViewCard from './ViewCard'
+import ViewCard from './ViewCard';
+import ListPeserta from "./ListPeserta";
 
-export {Home, Profile, ViewCard} ;
+export { Home, Profile, ListPeserta, ViewCard };

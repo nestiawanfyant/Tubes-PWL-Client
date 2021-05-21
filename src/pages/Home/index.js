@@ -15,111 +15,53 @@ import { Color } from "../../assets/color";
 // import '../../assets/css/HomeCss/index.css'
 
 const Home = () => {
-    const classes = styles()
+  const classes = styles();
 
-    return ( 
-        <div className={ classes.container }>
-            <p className={classes.homeText}> Daftar Kelas </p>
-            <div className={ classes.flexCard }>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
-                <Link className={ classes.textDecorationNone }>
-                    <CardKelas className={ classes.cardStyle } />
-                </Link>
+  return (
+    <div className={classes.container}>
+      <p className={classes.homeText}> Daftar Kelas </p>
+      <div className={classes.flexCard}>
+        <Link className={classes.textDecorationNone}>
+          <CardKelas
+            title="Pengembangan Web Lanjut"
+            dosen="Fikri Halim Ch"
+            gambar="https://picsum.photos/200/300"
+            className={classes.cardStyle}
+          />
+        </Link>
+      </div>
+    </div>
+  );
 
-            </div>
-        </div>
-    )
-    
-
-    return (
-        <div>
-        <p className={classes.homeText}> Home </p>
-        <Row className={classes.row}>
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-            <CardKelas
-            title="Pengembangan Web Lanjut"
-            dosen="Fikri Halim Ch"
-            gambar="https://picsum.photos/200/300"
-            />
-        </Row>
-        </div>
-    );
 };
 
 export default Home;
 
 const styles = createUseStyles({
-    container: {
-        width: '94%',
-        margin: '0 auto',
+  container: {
+    width: "94%",
+    margin: "0 auto",
+  },
+  textDecorationNone: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none",
     },
-    textDecorationNone:{
-        textDecoration: 'none',
-        '&:hover': {
-            textDecoration: 'none',
-        }
-    },
-    homeText: {
-        fontSize: 26, 
-        color: Color.blackDoff,
-        marginTop: 10,
-        marginLeft: 10,
-    },
-    flexCard: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cardStyle: {
-        marginLeft: 10,
-        marginRight: 10,
-    }
+  },
+  homeText: {
+    fontSize: 26,
+    color: Color.blackDoff,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  flexCard: {
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cardStyle: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
 });

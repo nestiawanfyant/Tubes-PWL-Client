@@ -23,7 +23,7 @@ const CardKelas = ({ title, dosen, gambar }) => {
           <div className={classes.box2}>
             <FiSettings className={classes.iconHeader} />
             {/* <img src={Mola} alt="kucing"> */}
-            <div className={classes.imageHeader}></div>
+            <Image src={gambar} alt="kucing" className={classes.imageHeader}/>
           </div>
         </div>
         <div className={classes.cardBody}>
@@ -65,7 +65,7 @@ const styles = createUseStyles({
     marginRight: 10,
     border: '1px solid #F5F5F5',
     boxShadow: '3px 12px 16px -4px rgba(235,235,235,0.44)',
-    marginTop: 10,
+    marginTop: 20,
   },
   cardHeader: {
     backgroundColor: Color.primary,

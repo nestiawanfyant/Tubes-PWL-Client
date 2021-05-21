@@ -1,0 +1,9 @@
+.container{
+    border: 1;
+    border-radius: 10;
+    border-color: #ababab;
+}
+
+.cardkelas-header{
+    background-color: blue;
+}

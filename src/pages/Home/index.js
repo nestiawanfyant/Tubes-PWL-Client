@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Row } from "react-bootstrap";
-// import '.././App.css';
 
 //components
 import { CardKelas } from "../../components";
@@ -10,6 +9,7 @@ import { CardKelas } from "../../components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
+import { Color } from "../../assets/color";
 
 // stylesheet
 // import '../../assets/css/HomeCss/index.css'
@@ -19,10 +19,36 @@ const Home = () => {
 
     return ( 
         <div className={ classes.container }>
-            <p className={classes.homeText}> Home </p>
+            <p className={classes.homeText}> Daftar Kelas </p>
             <div className={ classes.flexCard }>
-                <CardKelas className={ classes.cardStyle } />
-                <CardKelas className={ classes.cardStyle } />
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+                <Link className={ classes.textDecorationNone }>
+                    <CardKelas className={ classes.cardStyle } />
+                </Link>
+
             </div>
         </div>
     )
@@ -74,12 +100,21 @@ const styles = createUseStyles({
         width: '94%',
         margin: '0 auto',
     },
+    textDecorationNone:{
+        textDecoration: 'none',
+        '&:hover': {
+            textDecoration: 'none',
+        }
+    },
     homeText: {
-        fontSize: 40, 
-        color: '#004d40',
+        fontSize: 26, 
+        color: Color.blackDoff,
+        marginTop: 10,
+        marginLeft: 10,
     },
     flexCard: {
         display: 'flex',
+        flexWrap: 'wrap',
         flexDirection: 'row',
         alignItems: 'center',
     },

@@ -58,12 +58,14 @@ const styles = createUseStyles({
   },
   cardContainer: {
     overflow: "hidden",
-    maxWidth: 310,
+    flexDirection: 'column',
+    maxWidth: 296,
     borderRadius: 10,
     marginLeft: 10,
     marginRight: 10,
     border: '1px solid #F5F5F5',
     boxShadow: '3px 12px 16px -4px rgba(235,235,235,0.44)',
+    marginTop: 10,
   },
   cardHeader: {
     backgroundColor: Color.primary,

@@ -123,7 +123,7 @@ const styles = createUseStyles({
   cardBody: {
     padding: 20,
     borderColor: Color.secondary,
-    border: "0.1px solid #000000",
+    // border: "0.1px solid #000000",
   },
   listBody: {
     marginLeft: -15,

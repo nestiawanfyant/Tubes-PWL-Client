@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Button, Modal, Form, Row, Col } from 'react-bootstrap';
 
 // stylesheet
+import { Color } from "../assets/color";
 import {createUseStyles} from 'react-jss';
+import { BiPlus } from 'react-icons/bi';
 import "../assets/css/font.css";
 
 // page for route
@@ -35,7 +37,7 @@ const NavBar = () => {
             <ul className={ classes.ulnavigation }>
               <li className={ classes.liNavigation }>
                 <Link className={ classes.linkNavigationText }>
-                  <Button variant="primary" onClick={handleShow}> + </Button>
+                  <Button className={ classes.addClassBTN } onClick={handleShow}> <BiPlus className={ classes.BiPlus } /> </Button>
                 </Link>
 
                 <Modal show={show} onHide={handleClose}>
@@ -105,6 +107,26 @@ const styles = createUseStyles({
     borderBottom: '1px solid #E2E2E2',
     paddingLeft: 30,
     paddingRight: 30,
+  },
+  addClassBTN:{
+    backgroundColor: 'transparent',
+    border: 'none',
+    '&:hover': {
+      backgroundColor: 'transparent',
+      border: 'none',
+    },
+    '&:focus': {
+      backgroundColor: 'transparent',
+      border: 'none',
+    },
+    '&:active': {
+      backgroundColor: 'transparent',
+      border: 'none',
+    }
+  },
+  BiPlus: {
+    color: Color.blackDoff,
+    fontSize: 26
   },
   titleNavbarText:{
     fontSize: 22,

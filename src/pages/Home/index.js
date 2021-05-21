@@ -21,7 +21,7 @@ const Home = () => {
     <div className={classes.container}>
       <p className={classes.homeText}> Daftar Kelas </p>
       <div className={classes.flexCard}>
-        <Link className={classes.textDecorationNone}>
+        <Link to={"kelas/view"} className={classes.textDecorationNone}>
           <CardKelas
             title="Pengembangan Web Lanjut"
             dosen="Fikri Halim Ch"

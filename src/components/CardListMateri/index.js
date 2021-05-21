@@ -1,64 +1,77 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 // bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image, Button, Modal, Form, Row, Col, Card } from 'react-bootstrap';
+import { Image, Button, Form, Row, Col, Card } from 'react-bootstrap';
 
 // stylesheet
 import { Color } from "../../assets/color";
 import {createUseStyles} from 'react-jss';
-import { BiPlus } from 'react-icons/bi';
 import "../../assets/css/font.css";
 
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from 'react-icons/bi';
 
-// component
-import { CardListMateri } from "../../components"
-
-const ViewCard = () => {
+const cardListMateri = () => {
 
     const styles = style();
 
-    return(
-        <div className={ (styles.ViewContainer) }>
-            <Card className={styles.cardCover}>
-                <Card.Img className={ styles.imgCardCover } src="https://picsum.photos/200/300" alt="Card image" />
-                <Card.ImgOverlay className={styles.imgOVerly}>
-                    <Card.Title className={ styles.textTitle }>Metodologi Penelitian</Card.Title>
-                    <Card.Text className={ styles.textContent }>
-                        Jumat, 14.00 - 15.40 WIB, Semester Genap T.A. 2020/2021
-                    </Card.Text>
-                    {/* <Card.Text>Last updated 3 mins ago</Card.Text> */}
-                </Card.ImgOverlay>
-            </Card>
-
-            {/* content */}
-
-            <Row>
-                <Col sm={3}>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title className={ styles.titleLeftCard }> Upcoming </Card.Title>
-                            <Card.Text className={ styles.textLeftCard }> Woohoo, no work due soon! </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col sm={9}>
-                    
-                    <CardListMateri /> <br />
-                    <CardListMateri /> <br />
-                    <CardListMateri /> <br />
-                    <CardListMateri /> <br />
-
-                </Col>
-            </Row>
-        </div>
+    return( 
+        <Card>
+            <Link className={styles.linkheaderCard}>
+                <Card.Header className={ styles.cardContenHeader }>
+                    <Row>
+                        <Col sm={11}>
+                            <div className={ styles.nameCardTitle }>
+                                <BiBookBookmark className={styles.iconCardTitle} />
+                                <p className={styles.textCardTitle}> Nestiawan posted a new material: Materi 3 </p>
+                            </div>
+                        </Col>
+                        <Col sm={1}>
+                            <BiDotsVerticalRounded className={ styles.DotsVerticalRounded } />
+                        </Col>
+                    </Row>
+                </Card.Header>
+            </Link>
+            <Card.Body>
+                <Card.Text className={styles.textContentCard}>
+                    Assalamu'alaikum... <br />
+                    link perkulihaan hari ini: <br />
+                    https://zoom.us/j/98593128191?pwdsd=Y0VJbm5PddU0xpVDBYaXdjcVJYMStZUT09<br />
+                    <br />
+                    <br />
+                    Terimakasih🙏
+                </Card.Text>
+            </Card.Body>
+            <Card.Footer className={ styles.footerCard }>
+                <Row>
+                    <Col sm={1}>
+                        <Image src="https://picsum.photos/200/300" className={styles.imagesProfile} roundedCircle />
+                    </Col>
+                    <Col sm={11}>
+                        <Form className={ styles.formInsertCode }>
+                            <Row>
+                                <Col sm={11}>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Control className={styles.inputComment} type="text" placeholder="Enter email" />
+                                    </Form.Group>
+                                </Col>
+                                <Col sm={1}>
+                                    <Button type="submit" className={styles.buttonSendComment}>
+                                        <BiSend className={styles.iconBtnSendComment} />
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Col>
+                </Row>
+            </Card.Footer>
+        </Card>
     )
 }
 
-export default ViewCard;
+export default cardListMateri;
 
 const style = createUseStyles({
     ViewContainer:{

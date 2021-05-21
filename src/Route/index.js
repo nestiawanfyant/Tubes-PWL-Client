@@ -12,7 +12,7 @@ import { BiPlus } from 'react-icons/bi';
 import "../assets/css/font.css";
 
 // page for route
-import {Home, Profile, ViewCard} from '../pages'
+import {Home, Profile, ViewCard, ListPeserta} from '../pages'
 
 const NavBar = () => {
 
@@ -43,7 +43,7 @@ const NavBar = () => {
                 <Link className={ classes.linkNavigationTextClass} > ClassWork </Link>
               </li>
               <li className={ classes.liNavigationClass } >
-                <Link className={ classes.linkNavigationTextClass} > Title </Link>
+                <Link to={ "/peserta/kelas/udin" } className={ classes.linkNavigationTextClass} > People </Link>
               </li>
             </ul>
 
@@ -90,8 +90,8 @@ const NavBar = () => {
             <Switch>
               <Route exact path="/" component={ Home } />
               <Route path="/profile" component={ Profile } />
-              <Route path="/kelas:name" component={ ViewCard } />
-              <Route path="/peserta/kelas:name/" component={ Profile } />
+              <Route path="/kelas/:name" component={ ViewCard } />
+              <Route path="/peserta/kelas/:name" component={ ListPeserta } />
             </Switch>
           </div>
       </Router>

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Image } from "react-bootstrap";
+
 import "./CardKelas.css";
 import { createUseStyles } from "react-jss";
 import { Color } from "../../assets/color";
@@ -7,24 +9,25 @@ import { Mola } from "../../assets/image";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = () => {
+const CardKelas = ({ title, dosen, gambar }) => {
   const classes = styles();
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
         <div className={classes.box1}>
-          <div className={classes.titleHeader}>Pemrograman Web Lanjut</div>
-          <div className={classes.textHeader}>Fikri Halim ch</div>
-          <div className={classes.textHeader}>Fikri Halim ch</div>
+          <div className={classes.titleHeader}>{title}</div>
+          <div className={classes.textHeader}>{dosen}</div>
         </div>
         <div className={classes.box2}>
           <FiSettings className={classes.iconHeader} />
           {/* <img src={Mola} alt="kucing"> */}
-          <div className={classes.imageHeader}></div>
+          <Image src={gambar} className={classes.imageHeader} roundedCircle />
+          {/* <div className={classes.imageHeader}></div> */}
         </div>
       </div>
       <div className={classes.cardBody}>
-        {/* <ul className={classes.listBody}>
+        {/* kalau ada tugas 
+        <ul className={classes.listBody}>
           <li>Tugas 1 - HTML Dasar</li>
           <li>Tugas 2 - CSS Dasar</li>
           <li>Tugas 1 - HTML Dasar</li>
@@ -52,11 +55,11 @@ const styles = createUseStyles({
   cardContainer: {
     overflow: "hidden",
     maxWidth: 300,
-    // padding: 20,
+    marginBottom: 30,
     borderWidth: 3,
-    borderColor: "#31ec92",
     borderRadius: 10,
-    // backgroundColor: Color.secondary,
+    boxShadow: "0px 10px 15px -10px rgba(0,0,0,0.21)",
+    // boxShadow: "0px 13px 20px -1px rgba(0,0,0,0.22)",
   },
   cardHeader: {
     backgroundColor: Color.primary,
@@ -68,19 +71,18 @@ const styles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     flex: 3,
-
   },
   box2: {
     display: "flex",
     flexDirection: "column",
-    position: 'relative',
+    position: "relative",
     alignItems: "center",
     flex: 1,
   },
   titleHeader: {
     fontSize: 22,
     color: Color.white,
-    textOverflow: 'ellipsis'
+    textOverflow: "ellipsis",
   },
   textHeader: {
     fontSize: 15,
@@ -107,6 +109,8 @@ const styles = createUseStyles({
   },
   cardBody: {
     padding: 20,
+    borderColor: Color.secondary,
+    border: "0.1px solid #000000",
   },
   listBody: {
     marginLeft: -15,

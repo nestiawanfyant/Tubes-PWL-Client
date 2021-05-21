@@ -9,7 +9,7 @@ import { FiXSquare, FiMoreVertical } from "react-icons/fi";
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
 
-const Orang = ({ nama, gambar }) => {
+const Orang = ({ nama, gambar, type }) => {
   // State
   const [show, setShow] = useState(false);
 
@@ -21,14 +21,16 @@ const Orang = ({ nama, gambar }) => {
   return (
     <div className={classes.box}>
       <Image className={classes.image} src={gambar} roundedCircle />
-      <h6 className={classes.text}>{nama}</h6>
-
-      <FiXSquare className={classes.icon} onClick={handleShow} />
-      <Modal show={show} onHide={handleClose} >
+      <div className={classes.textBox}>
+        <h6 className={classes.text}>{nama}</h6>
+      </div>
+      <FiXSquare className={classes.iconRed} onClick={handleShow} />
+      <Modal show={show} onHide={handleClose}>
         <Modal.Body>
           {/* <Form> */}
           <h3>
-            Apakah anda yakin ingin mengeluarkan <b className={classes.bold}>{nama}</b>
+            Apakah anda yakin ingin mengeluarkan{" "}
+            <b className={classes.bold}>{nama}</b>
           </h3>
           {/* </Form> */}
         </Modal.Body>
@@ -37,7 +39,7 @@ const Orang = ({ nama, gambar }) => {
             Ya, Keluarkan
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Close
+            Batal
           </Button>
         </Modal.Footer>
       </Modal>
@@ -80,13 +82,23 @@ const styles = createUseStyles({
     height: 40,
     marginRight: 10,
   },
-  text: {
+  textBox: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
     color: Color.blackDoff,
+    fontFamily: "DM Sans",
   },
   icon: {
     fontSize: 25,
     color: Color.primary,
+    marginLeft: 15,
+  },
+  iconRed: {
+    fontSize: 25,
+    color: Color.red,
     marginLeft: 15,
   },
   pop: {
@@ -94,6 +106,6 @@ const styles = createUseStyles({
     color: Color.primary,
   },
   bold: {
-      color: Color.primary
-  }
+    color: Color.primary,
+  },
 });

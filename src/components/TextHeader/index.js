@@ -18,7 +18,7 @@ export default TextHeader;
 
 const styles = createUseStyles({
     box:{
-        marginTop: 25,
+        marginTop: 35,
         marginBottom: 30,
         borderBottomColor: Color.primary,
         borderBottom: "1px solid #F5F5F5",
@@ -27,5 +27,6 @@ const styles = createUseStyles({
         color: Color.primary,
         fontFamily: 'DM Sans',
         fontWeight: '600',
+        letterSpacing: 2
     }
 });

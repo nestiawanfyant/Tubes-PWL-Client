@@ -101,7 +101,7 @@ const styles = createUseStyles({
   imageHeader: {
     width: 60,
     height: 60,
-    backgroundColor: Color.black,
+    backgroundColor: Color.blackDoff,
     borderRadius: 50,
     borderWidth: 3,
     position: "relative",

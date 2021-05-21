@@ -18,11 +18,14 @@ export default TextHeader;
 
 const styles = createUseStyles({
     box:{
+        marginTop: 25,
         marginBottom: 30,
         borderBottomColor: Color.primary,
         borderBottom: "1px solid #F5F5F5",
     },
     text: {
         color: Color.primary,
+        fontFamily: 'DM Sans',
+        fontWeight: '600',
     }
 });

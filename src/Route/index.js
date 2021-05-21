@@ -37,7 +37,7 @@ const NavBar = () => {
 
             <ul className={ classes.ulnavigation }>
               <li className={ classes.liNavigationClass } >
-                <Link className={ classes.linkNavigationTextClass} > Stream </Link>
+                <Link to={"/kelas/metpen"} className={ classes.linkNavigationTextClass} > Stream </Link>
               </li>
               <li className={ classes.liNavigationClass } >
                 <Link className={ classes.linkNavigationTextClass} > ClassWork </Link>

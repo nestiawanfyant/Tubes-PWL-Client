@@ -5,27 +5,30 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 // bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
+import {createUseStyles} from 'react-jss'
 
 // stylesheet
 // import '../../assets/css/HomeCss/index.css'
 
-// page for route
 
-export default class Home extends Component {
+const Home = () => {
 
-    constructor(props){
-        super(props);
-        this.state ={
-        }
-    }
+    const classes = styles()
 
-    render() {
-        return ( 
-            <div>
-                <p> Home </p>
-            </div>
-        )
-    }
+    return ( 
+        <div>
+            <p className={classes.homeText}> Home </p>
+        </div>
+    )
     
 
 }
+
+export default Home;
+
+const styles = createUseStyles({
+    homeText: {
+        fontSize: 30, 
+        color: '#004d40',
+    }
+});

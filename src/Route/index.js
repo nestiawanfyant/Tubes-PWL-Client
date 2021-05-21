@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 
 // stylesheet
-// import "../assets/css/RouteCss"
 
 // page for route
 import {Home, Profile} from '../pages'

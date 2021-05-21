@@ -75,6 +75,7 @@ const NavBar = () => {
             <Switch>
               <Route exact path="/" component={ Home } />
               <Route path="/profile" component={ Profile } />
+              <Route path="/kelas/:name" component={ Profile } />
             </Switch>
           </div>
       </Router>

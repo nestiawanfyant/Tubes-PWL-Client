@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Image } from "react-bootstrap";
+
 import "./CardKelas.css";
 import { createUseStyles } from "react-jss";
 import { Color } from "../../assets/color";
@@ -8,7 +10,7 @@ import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import "../../assets/css/font.css";
 
-const CardKelas = () => {
+const CardKelas = ({ title, dosen, gambar }) => {
   const classes = styles();
   return (
       <div className={classes.cardContainer}>
@@ -78,7 +80,7 @@ const styles = createUseStyles({
   box2: {
     display: "flex",
     flexDirection: "column",
-    position: 'relative',
+    position: "relative",
     alignItems: "center",
     flex: 1,
   },
@@ -120,6 +122,8 @@ const styles = createUseStyles({
   },
   cardBody: {
     padding: 20,
+    borderColor: Color.secondary,
+    border: "0.1px solid #000000",
   },
   listBody: {
     marginLeft: -15,

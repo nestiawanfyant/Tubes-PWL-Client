@@ -4,4 +4,5 @@ export const Color = {
     primary : '#9c88ff',
     secondary: '#8395a7',
     blackDoff: '#2B2B2B',
+    secondaryPrimary: '#d6d6d6',
 }

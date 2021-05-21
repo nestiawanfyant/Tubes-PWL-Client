@@ -25,7 +25,6 @@ const NavBar = () => {
 
     return (
       <Router>
-        {/* <div className={ classes.container }> */}
           <div className={ classes.navbar }>
             <div className={ classes.titleNavbar }>
                 <Link to={"/"} className={classes.textAStyle}>
@@ -78,7 +77,6 @@ const NavBar = () => {
               <Route path="/profile" component={ Profile } />
             </Switch>
           </div>
-        {/* </div> */}
       </Router>
     )
 }

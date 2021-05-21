@@ -18,9 +18,12 @@ const Home = () => {
     const classes = styles()
 
     return ( 
-        <div>
+        <div className={ classes.container }>
             <p className={classes.homeText}> Home </p>
-            <CardKelas/>
+            <div className={ classes.flexCard }>
+                <CardKelas className={ classes.cardStyle } />
+                <CardKelas className={ classes.cardStyle } />
+            </div>
         </div>
     )
     
@@ -30,8 +33,21 @@ const Home = () => {
 export default Home;
 
 const styles = createUseStyles({
+    container: {
+        width: '94%',
+        margin: '0 auto',
+    },
     homeText: {
         fontSize: 40, 
         color: '#004d40',
+    },
+    flexCard: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cardStyle: {
+        marginLeft: 10,
+        marginRight: 10,
     }
 });

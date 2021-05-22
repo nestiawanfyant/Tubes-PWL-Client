@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import {createUseStyles} from 'react-jss';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image, Button, Modal, Form, Row, Col, Card } from 'react-bootstrap';
+import { Image, Button, Nav, Form, Row, Col, Card } from 'react-bootstrap';
 // assets
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
@@ -41,6 +41,20 @@ const ViewCard = () => {
                     </Card>
                 </Col>
                 <Col sm={9}>
+
+                <Nav variant="tabs" defaultActiveKey="/home">
+                    <Nav.Item>
+                        <Nav.Link href="/home">Active</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="link-1">Option 2</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="disabled" disabled>
+                        Disabled
+                        </Nav.Link>
+                    </Nav.Item>
+                </Nav>
                     
                     <CardListMateri /> <br />
 

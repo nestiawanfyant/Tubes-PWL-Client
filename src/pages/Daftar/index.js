@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -40,33 +40,64 @@ const Login = () => {
       .then(responseJson => {
         if (responseJson.error != null) {
           console.log(responseJson)
+
+          responseJson.error.nama.forEach(errorDataname => {
+              setNama(errorDataname);
+          });
+
+          responseJson.error.email.forEach(errorDataEmail => {
+              setEmail(errorDataEmail);
+          });
+
+          responseJson.error.password.forEach(errorDataPass => {
+            setPassword(errorDataPass);
+          });
+
+          responseJson.error.password_confirmation.forEach(errorDataPassCof => {
+            setPasswordConfirmation(errorDataPassCof);
+          });
+
+          responseJson.error.foto.forEach(errorDataFoto => {
+            setFoto(errorDataFoto);
+          });
+
         } else {
-          console.log(responseJson)
-          console.log("tes")
+          // console.log(responseJson)
+          // console.log("tes")
+          setNama(responseJson.error.nama);
+          console.log(nama);
           setError(responseJson.error)
+
         }
       })
       .catch(e => console.log(e));
   }
 
+
+  useEffect(() => {
+
+  });
+
   return (
     <Row>
       <Col sm={5} className={classes.box}>
-        {!error ? error : null}
         <Form>
           <Form.Group controlId="formBasicName">
             <Form.Label className={classes.label}>Nama</Form.Label>
             <Form.Control type="text" placeholder="Masukkan nama lengkap" autoComplete="off" required value={nama} onChange={(e) => setNama(e.target.value)} />
+            <p> { nama } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
             <Form.Label className={classes.label}>Email</Form.Label>
             <Form.Control type="email" placeholder="Masukkan email" autoComplete="off" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <p> { email } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label className={classes.label}>Password</Form.Label>
             <Form.Control type="password" placeholder="Masukkan password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+            <p> { password } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicPasswordConfirmation">
@@ -78,6 +109,7 @@ const Login = () => {
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
+            <p> { passwordConfirmation } </p>
           </Form.Group>
 
           <Form.Group>
@@ -86,6 +118,7 @@ const Login = () => {
             <Form.Label className={classes.label}>
               <Form.File id="exampleFormControlFile1" required accept=".png, .jpg, .jpeg" onChange={(e) => setFoto(e.target.files[0])} />
             </Form.Label>
+            <p> { foto } </p>
           </Form.Group>
           <Form.Text className="text-muted">
             *Privasi anda tidak akan disebarluaskan

@@ -5,6 +5,7 @@ import ListPeserta from "./ListPeserta";
 import MateriTambah from "./MateriTambah";
 import KelasTambah from "./KelasTambah";
 import TugasTambah from "./TugasTambah";
+import KelasTerbuka from "./KelasTerbuka";
 import Login from "./Login";
 import Daftar from "./Daftar";
 
@@ -18,4 +19,5 @@ export {
   TugasTambah,
   Login,
   Daftar,
+  KelasTerbuka,
 };

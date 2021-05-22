@@ -27,41 +27,7 @@ const Profile = () => {
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Form.Row>
-        <Form.Group as={Col} md="12" controlId="validationCustom01">
-          <Form.Label className={classes.text}>Topik</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Ingin membahas apa selanjutnya ?"
-          />
-          <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
-            Wajib mencamtumkan topik
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-          <Form.Label className={classes.text}>Deskripsi</Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              placeholder="Deskripsikan gambaran umum topik"
-            />
-            <Form.Control.Feedback>(Opsional)</Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className={classes.text}>File Pendukung</Form.Label>
-          <Form.File
-            id="exampleFormControlFile1"
-            required
-          />
-        </Form.Group>
-      </Form.Row>
-      <Button type="submit">Submit form</Button>
-    </Form>
+    <h4>page profils</h4>
   );
 };
 

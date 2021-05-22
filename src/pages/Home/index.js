@@ -24,6 +24,30 @@ const Home = () => {
           gambar="https://picsum.photos/200/300"
           className={classes.cardStyle}
         />
+        <CardKelas
+          title="Pengembangan Web Lanjut"
+          dosen="Fikri Halim Ch"
+          gambar="https://picsum.photos/200/300"
+          className={classes.cardStyle}
+        />
+        <CardKelas
+          title="Pengembangan Web Lanjut"
+          dosen="Fikri Halim Ch"
+          gambar="https://picsum.photos/200/300"
+          className={classes.cardStyle}
+        />
+        <CardKelas
+          title="Pengembangan Web Lanjut"
+          dosen="Fikri Halim Ch"
+          gambar="https://picsum.photos/200/300"
+          className={classes.cardStyle}
+        />
+        <CardKelas
+          title="Pengembangan Web Lanjut"
+          dosen="Fikri Halim Ch"
+          gambar="https://picsum.photos/200/300"
+          className={classes.cardStyle}
+        />
       </div>
     </div>
   );

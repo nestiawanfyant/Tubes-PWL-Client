@@ -42,19 +42,19 @@ const ViewCard = () => {
                 </Col>
                 <Col sm={9}>
 
-                <Nav variant="tabs" defaultActiveKey="/home">
-                    <Nav.Item>
-                        <Nav.Link href="/home">Active</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-1">Option 2</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="disabled" disabled>
-                        Disabled
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
+                    <Nav variant="tabs" defaultActiveKey="/home">
+                        <Nav.Item>
+                            <Nav.Link href="/home">Materi</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="link-1">Tugas</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="disabled">Forum</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+
+                    <br />
                     
                     <CardListMateri /> <br />
 

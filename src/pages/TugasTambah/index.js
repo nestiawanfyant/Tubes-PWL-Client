@@ -17,7 +17,7 @@ import { createUseStyles } from "react-jss";
 //assets
 import { Color } from "../../assets/color";
 //components
-import { CardKelas } from "../../components";
+import { CardListTugas } from "../../components";
 //icon
 import { FiFileText, FiX } from "react-icons/fi";
 
@@ -115,7 +115,7 @@ export default TugasTambah;
 
 const styles = createUseStyles({
   container: {
-    width: "50%",
+    width: "90%",
     margin: "20px auto",
   },
   text: {

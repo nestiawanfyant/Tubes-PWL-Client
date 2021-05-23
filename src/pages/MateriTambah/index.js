@@ -88,7 +88,7 @@ export default MateriTambah;
 
 const styles = createUseStyles({
   container: {
-    width: "50%",
+    width: "90%",
     margin: "20px auto",
   },
   text: {

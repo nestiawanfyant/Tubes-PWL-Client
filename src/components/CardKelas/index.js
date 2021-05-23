@@ -21,7 +21,7 @@ const CardKelas = ({ title, dosen, gambar }) => {
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
         <div className={classes.box1}>
-          <Link to={"kelas/view"} className={classes.textDecorationNone}>
+          <Link to={"kelas/metopen/materi"} className={classes.textDecorationNone}>
             <div className={classes.titleHeader}>Pemrograman Web Lanjut</div>
             <div className={classes.time}>Sabtu 14:00 - 16:00 </div>
             <div className={classes.textHeader}>Fikri Halim ch</div>

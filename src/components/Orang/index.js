@@ -10,7 +10,6 @@ import "../../assets/css/font.css";
 //icon
 import { FiXSquare, FiMoreVertical } from "react-icons/fi";
 
-
 const Orang = ({ nama, gambar, type }) => {
   // State
   const [show, setShow] = useState(false);
@@ -45,9 +44,9 @@ const Orang = ({ nama, gambar, type }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
+      {/* 
       <OverlayTrigger
-        trigger="click"
+        trigger="focus"
         key="left"
         placement="left"
         overlay={
@@ -62,7 +61,29 @@ const Orang = ({ nama, gambar, type }) => {
           </Popover>
         }
       >
-        <FiMoreVertical className={classes.icon} />
+        <Button>
+        </Button>
+      </OverlayTrigger> */}
+      <OverlayTrigger
+        trigger="focus"
+        key="left"
+        placement="left"
+        overlay={
+          //   <Popover id={`popover-positioned-${placement}`}>
+          <Popover id="popover-positioned-left">
+            <Popover.Content>
+              <Link className={classes.pop}>Jadikan Guru</Link>
+            </Popover.Content>
+            <Popover.Content>
+              <Link className={classes.pop}>Jadikan Asisten</Link>
+            </Popover.Content>
+          </Popover>
+        }
+      >
+        <Button className={classes.addClassBTN}>
+          {" "}
+          <FiMoreVertical className={classes.icon} />
+        </Button>
       </OverlayTrigger>
     </div>
   );
@@ -109,5 +130,24 @@ const styles = createUseStyles({
   },
   bold: {
     color: Color.primary,
+  },
+  addClassBTN: {
+    backgroundColor: "transparent",
+    padding: 0,
+    border: "none",
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "none",
+    },
+    "&:focus": {
+      backgroundColor: "transparent",
+      border: "none",
+      boxShadow: "none",
+    },
+    "&:active": {
+      backgroundColor: "transparent",
+      border: "none",
+      boxShadow: "none",
+    },
   },
 });

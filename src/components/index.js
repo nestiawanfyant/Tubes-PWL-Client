@@ -6,6 +6,7 @@ import CardListMateri from "./CardListMateri";
 import CardListKelas from "./CardListKelas";
 import CardListTugas from "./CardListTugas";
 import NavKelas from "./NavKelas";
+import SearchKelas from "./SearchKelas";
 
 export {
   CardKelas,
@@ -16,4 +17,5 @@ export {
   CardListTugas,
   ValidasiOrang,
   NavKelas,
+  SearchKelas,
 };

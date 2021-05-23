@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { Component, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +13,12 @@ import { ViewCard } from "../index";
 
 const Home = () => {
   const classes = styles();
+  const history = useHistory()
+
+  useEffect(() => {
+    const isLogin = () => localStorage.getItem('token') ? null : history.replace('/login')
+    isLogin()
+  }, [])
 
   return (
     <div className={classes.container}>

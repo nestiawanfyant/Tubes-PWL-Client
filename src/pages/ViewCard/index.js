@@ -17,7 +17,7 @@ import {
 // component
 import { CardListMateri } from "../../components";
 //pages
-import {Profile, ViewMateri, ViewTugas} from '../../pages'
+import { Profile, ViewMateri, ViewTugas } from '../../pages'
 
 const ViewCard = () => {
   const styles = style();
@@ -60,7 +60,9 @@ const ViewCard = () => {
         </Col>
         <Col sm={9}>
           <Switch>
-            <Route path="/kelas/:name/materi" component={ViewMateri} />
+            <Route path="/kelas/:name/materi">
+              <ViewMateri />
+            </Route>
             <Route path="/kelas/:name/tugas" component={ViewTugas} />
             <Route path="/kelas/:name/forum" component={Profile} />
           </Switch>

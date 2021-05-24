@@ -18,8 +18,7 @@ import {
   Profile,
   ViewCard,
   ListPeserta,
-  Login,
-  ViewMateri,
+  ViewTugas,
   KelasTerbuka,
   KelasTambah,
   ViewTugas,
@@ -57,12 +56,13 @@ const NavBar = () => {
     })
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson) {
+        if (responseJson == true) {
           setShow(false)
+          setKodeKelas('')
           history.push('/')
         } else {
           e.preventDefault()
-          setError("Kode kelas tidak ditemukan")
+          setError(responseJson)
         }
       })
       .catch(e => console.log(e));
@@ -163,7 +163,7 @@ const NavBar = () => {
           <li className={classes.liNavigation}>
             <Link to={"/profile"} className={classes.linkNavigationText}>
               <Image
-                src="https://picsum.photos/200/300"
+                src={user.foto}
                 className={classes.imagesProfile}
                 roundedCircle
               />

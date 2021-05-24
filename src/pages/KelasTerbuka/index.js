@@ -25,7 +25,7 @@ function KelasTerbuka() {
       {
         kelas.length > 0 ?
           kelas.map(data => {
-            return <CardListKelas title={data.nama} id={data.id} pengampu={data.user.nama} gambar="https://picsum.photos/200/300" deskripsi={data.deskripsi ?? ''} />
+            return <CardListKelas key={data.id} title={data.nama} id={data.id} pengampu={data.user.nama} gambar="https://picsum.photos/200/300" deskripsi={data.deskripsi ?? ''} />
           }) :
           <h5>Tidak ada kelas terbuka</h5>
       }

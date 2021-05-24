@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 //datetime picker
 import DateMomentUtils from "@date-io/moment";
 import {
-  DatePicker,
-  TimePicker,
   DateTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
@@ -16,10 +13,6 @@ import { Button } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
 //assets
 import { Color } from "../../assets/color";
-//components
-import { CardListTugas } from "../../components";
-//icon
-import { FiFileText, FiX } from "react-icons/fi";
 
 const TugasTambah = ({ slug }) => {
   const classes = styles();
@@ -35,6 +28,7 @@ const TugasTambah = ({ slug }) => {
   const handleShow = () => setShow(false);
 
   const handleSubmit = (event) => {
+
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
@@ -43,13 +37,26 @@ const TugasTambah = ({ slug }) => {
 
     setValidated(true);
 
+    const waktu = selectedDate
+    const tahun = waktu.getFullYear()
+    let bulan = waktu.getMonth() + 1
+    bulan = bulan >= 10 ? bulan : '0' + bulan
+    let tanggal = waktu.getDate()
+    tanggal = tanggal >= 10 ? tanggal : '0' + tanggal
+    let jam = waktu.getHours()
+    jam = jam >= 10 ? jam : '0' + jam
+    let minute = waktu.getMinutes()
+    minute = minute >= 10 ? minute : '0' + jam
+    console.log(tahun + ' ' + bulan + ' ' + tanggal + ' ' + jam + ' ' + minute)
+
     const data = new FormData()
     data.append('nama', nama)
     data.append('deskripsi', deskripsi)
     data.append('file', file)
-    data.append('deadline', selectedDate)
+    data.append('deadline', bulan + '-' + tanggal + '-' + tahun + ' ' + jam + ':' + minute)
     data.append('slug', slug)
     data.append('id', user.id)
+    data.append('slug', slug)
 
     fetch('http://127.0.0.1:8000/tugas/store', {
       method: 'POST',
@@ -96,7 +103,7 @@ const TugasTambah = ({ slug }) => {
           : null
         }
         <Form.Row>
-          {selectedDate}
+          {/* {selectedDate} */}
           <Form.Group as={Col} md="12" controlId="validationCustom01">
             <Form.Label className={classes.text}>Topik</Form.Label>
             <Form.Control

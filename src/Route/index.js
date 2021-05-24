@@ -11,7 +11,7 @@ import { createUseStyles } from "react-jss";
 import { BiPlus } from "react-icons/bi";
 import "../assets/css/font.css";
 //component
-import { NavKelas,SearchKelas } from "../components";
+import { NavKelas, SearchKelas } from "../components";
 // page for route
 import {
   Home,
@@ -44,6 +44,9 @@ const NavBar = () => {
         <div className={classes.titleNavbar}>
           <Link to={"/"} className={classes.textAStyle}>
             <h2 className={classes.titleNavbarText}> ClassRoom </h2>
+          </Link>
+          <Link to={"/login"} onClick={() => localStorage.clear()} className={classes.textAStyle}>
+            <h2 className={classes.titleNavbarText}> Logout </h2>
           </Link>
         </div>
 

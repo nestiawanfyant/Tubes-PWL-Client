@@ -41,6 +41,8 @@ const Home = () => {
                 key={value.id}
                 kelasUser={value.kelas.user_id}
                 user={user.id}
+                tipe={value.kelas.tipe}
+                kelasId={value.kelas.id}
                 title={value.kelas.nama}
                 dosen={value.kelas.user.nama}
                 kode={value.kelas.kode}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 //bootstra
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -121,6 +121,9 @@ const Login = () => {
           <Button type="submit" className={classes.button} onClick={Register}>
             Daftar
           </Button>
+          <h6 className={classes.text}>
+            Sudah memiliki akun ? <Link to={"/login"}>Login</Link>
+          </h6>
         </Form>
       </Col>
       <Col sm={7}>

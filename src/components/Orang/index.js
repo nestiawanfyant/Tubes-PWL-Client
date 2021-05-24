@@ -13,90 +13,101 @@ import { FiXSquare, FiMoreVertical } from "react-icons/fi";
 const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
   // State
   const [show, setShow] = useState(false);
+  const [showSiswa, setShowSiswa] = useState(false);
+  const [showAsisten, setShowAsisten] = useState(false);
+  const [showGuru, setShowGuru] = useState(false);
   const [showRole, setShowRole] = useState(false);
 
   // function
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseRole = () => setShowRole(false);
+  const handleShowRole = () => setShowRole(true);
+  const handleCloseSiswa= () => setShowSiswa(false);
+  const handleShowSiswa = () => setShowSiswa(true);
+  const handleCloseAsisten = () => setShowAsisten(false);
+  const handleShowAsisten = () => setShowAsisten(true);
+  const handleCloseGuru = () => setShowGuru(false);
+  const handleShowGuru = () => setShowGuru(true);
 
   const btnUpdateGuru = (e) => {
-    e.preventDefault()
-    fetch('http://127.0.0.1:8000/kelas/role/update', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/kelas/role/update", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: roleId,
-        role: '1'
-      })
+        role: "1",
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        setShowRole(false)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setShowRole(false);
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const btnUpdateAsisten = (e) => {
-    e.preventDefault()
-    fetch('http://127.0.0.1:8000/kelas/role/update', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/kelas/role/update", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: roleId,
-        role: '2'
-      })
+        role: "2",
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        setShowRole(false)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setShowRole(false);
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const btnUpdateSiswa = (e) => {
-    e.preventDefault()
-    fetch('http://127.0.0.1:8000/kelas/role/update', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/kelas/role/update", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: roleId,
-        role: '3'
-      })
+        role: "3",
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        setShowRole(false)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setShowRole(false);
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const btnKeluar = (e) => {
-    e.preventDefault()
-    fetch('http://127.0.0.1:8000/kelas/keluarkan', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/kelas/keluarkan", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: roleId
-      })
+        id: roleId,
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        setShow(false)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setShow(false);
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const classes = styles();
   return (
@@ -105,7 +116,9 @@ const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
       <div className={classes.textBox}>
         <h6 className={classes.text}>{nama}</h6>
       </div>
-      { role == '1' && owner != user ? <FiXSquare className={classes.iconRed} onClick={handleShow} /> : null}
+      {role == "1" && owner != user ? (
+        <FiXSquare className={classes.iconRed} onClick={handleShow} />
+      ) : null}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
@@ -126,7 +139,7 @@ const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
         </Modal.Footer>
       </Modal>
 
-      { role == '1' && owner != user ?
+      {role == "1" && owner != user ? (
         <OverlayTrigger
           trigger="focus"
           key="left"
@@ -137,9 +150,68 @@ const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
               <Popover.Content>
                 <Link className={classes.pop}>Jadikan Guru</Link>
               </Popover.Content>
+              <Modal show={showGuru} onHide={handleCloseGuru}>
+                <Modal.Body>
+                  Apakah anda yakin ingin mengangkat{" "}
+                    <b className={classes.bold}>{nama}</b>
+                    {" "}menjadi Guru ?
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="light">
+                    Ya, Jadikan Guru
+                  </Button>
+                  <Button className={classes.button} onClick={handleCloseGuru}>
+                    Batal
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
               <Popover.Content>
                 <Link className={classes.pop}>Jadikan Asisten</Link>
               </Popover.Content>
+              <Modal show={showAsisten} onHide={handleCloseAsisten}>
+                <Modal.Body>
+                  {/* <Form> */}
+                  <h5>
+                    Apakah anda yakin ingin mengangkat{" "}
+                    <b className={classes.bold}>{nama}</b>
+                    {" "}menjadi asisten ?
+                  </h5>
+                  {/* </Form> */}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="light">
+                    Ya, Jadikan Asisten
+                  </Button>
+                  <Button className={classes.button} onClick={handleCloseAsisten}>
+                    Batal
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+
+              <Popover.Content>
+                <Link className={classes.pop}>Jadikan Siswa</Link>
+              </Popover.Content>
+              <Modal show={showSiswa} onHide={handleCloseSiswa}>
+                <Modal.Body>
+                  {/* <Form> */}
+                  <h5>
+                    Apakah anda yakin ingin menurunkan{" "}
+                    <b className={classes.bold}>{nama}</b>
+                    {" "}menjadi siswa ?
+                  </h5>
+                  {/* </Form> */}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="light">
+                    Ya, Jadikan siswa
+                  </Button>
+                  <Button className={classes.button} onClick={handleCloseSiswa}>
+                    Batal
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Popover>
           }
         >
@@ -147,8 +219,8 @@ const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
             {" "}
             <FiMoreVertical className={classes.icon} />
           </Button>
-        </OverlayTrigger> : null
-      }
+        </OverlayTrigger>
+      ) : null}
     </div>
   );
 };

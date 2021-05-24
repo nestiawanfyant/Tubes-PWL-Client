@@ -46,7 +46,7 @@ const TugasTambah = ({ slug }) => {
     let jam = waktu.getHours()
     jam = jam >= 10 ? jam : '0' + jam
     let minute = waktu.getMinutes()
-    minute = minute >= 10 ? minute : '0' + jam
+    minute = minute >= 10 ? minute : '0' + minute
     console.log(tahun + ' ' + bulan + ' ' + tanggal + ' ' + jam + ' ' + minute)
 
     const data = new FormData()

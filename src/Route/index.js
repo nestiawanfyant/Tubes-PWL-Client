@@ -13,9 +13,6 @@ import "../assets/css/font.css";
 //component
 import { NavKelas, SearchKelas } from "../components";
 // page for route
-<<<<<<< HEAD
-import {Home, Profile, ViewCard, ListPeserta, Login, MateriTambah, KelasTambah} from '../pages'
-=======
 import {
   Home,
   Profile,
@@ -25,8 +22,9 @@ import {
   ViewMateri,
   KelasTerbuka,
   KelasTambah,
+  ViewTugas,
+  DetailTugas
 } from "../pages";
->>>>>>> b839f050c6325793cf098cac989fd5f640f5a1ef
 
 const NavBar = () => {
   // State
@@ -122,53 +120,6 @@ const NavBar = () => {
               </OverlayTrigger>
             </Link>
 
-<<<<<<< HEAD
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Tambah Kelas</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p> Silakan Masukan Kode Kelas </p>
-                    <Form className={ classes.formInsertCode }>
-                    <Row>
-                      <Col sm={8}>
-                        <Form.Group controlId="formBasicEmail">
-                          <Form.Control type="text" placeholder="Enter email" />
-                        </Form.Group>
-                      </Col>
-                      <Col sm={4}>
-                        <Button variant="primary" type="submit"> Submit </Button>
-                      </Col>
-                    </Row>
-                    </Form>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </li>
-              <li className={ classes.liNavigation }>
-                <Link to={"/profile"} className={ classes.linkNavigationText }>
-                  <Image src="https://picsum.photos/200/300" className={classes.imagesProfile} roundedCircle />
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="content">
-            <Switch>
-              <Route exact path="/" component={ Home } />
-              <Route path="/profile" component={ KelasTambah } />
-              <Route path="/kelas/:name" component={ ViewCard } />
-              <Route path="/tambah/kelas/" component={ Login } />
-              <Route path="/peserta/kelas/:name" component={ ListPeserta } />s
-            </Switch>
-          </div>
-      </Router>
-    )
-}
-=======
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Masuk Kelas</Modal.Title>
@@ -225,6 +176,7 @@ const NavBar = () => {
           <Route exact path="/" component={Home} />
           <Route path="/profile" component={Profile} />
           <Route path="/kelas/:name/peserta" component={ListPeserta} />
+          <Route path="/detailTugas" component={DetailTugas} />
           <Route path="/kelas/:name">
             <ViewCard />
           </Route>
@@ -235,7 +187,6 @@ const NavBar = () => {
     </Router>
   );
 };
->>>>>>> b839f050c6325793cf098cac989fd5f640f5a1ef
 
 export default NavBar;
 

@@ -33,38 +33,6 @@ const Home = () => {
     <div className={classes.container}>
       <p className={classes.homeText}> Daftar Kelas </p>
       <div className={classes.flexCard}>
-<<<<<<< HEAD
-        <CardKelas
-          title="Pengembangan Web Lanjut"
-          dosen="Fikri Halim Ch"
-          gambar="https://picsum.photos/200/300"
-          className={classes.cardStyle}
-        />
-        <CardKelas
-          title="Pengembangan Web Lanjut"
-          dosen="Fikri Halim Ch"
-          gambar="https://picsum.photos/200/300"
-          className={classes.cardStyle}
-        />
-        <CardKelas
-          title="Pengembangan Web Lanjut"
-          dosen="Fikri Halim Ch"
-          gambar="https://picsum.photos/200/300"
-          className={classes.cardStyle}
-        />
-        <CardKelas
-          title="Pengembangan Web Lanjut"
-          dosen="Fikri Halim Ch"
-          gambar="https://picsum.photos/200/300"
-          className={classes.cardStyle}
-        />
-        <CardKelas
-          title="Pengembangan Web Lanjut"
-          dosen="Fikri Halim Ch"
-          gambar="https://picsum.photos/200/300"
-          className={classes.cardStyle}
-        />
-=======
         {
           kelas.length > 0 ?
             kelas.map((value) => {
@@ -81,7 +49,6 @@ const Home = () => {
             <h2>takde kelas</h2>
         }
 
->>>>>>> b839f050c6325793cf098cac989fd5f640f5a1ef
       </div>
     </div>
   );

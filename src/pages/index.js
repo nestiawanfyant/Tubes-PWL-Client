@@ -10,6 +10,7 @@ import KelasTambah from "./KelasTambah";
 import TugasTambah from "./TugasTambah";
 import Login from "./Login";
 import Daftar from "./Daftar";
+import DetailTugas from "./DetailTugas";
 
 export {
   Home,
@@ -24,4 +25,6 @@ export {
   Login,
   Daftar,
   KelasTerbuka,
+  DetailTugas
 };
+

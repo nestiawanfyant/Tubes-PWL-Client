@@ -59,29 +59,6 @@ const ViewCard = () => {
 
       {/* content */}
 
-<<<<<<< HEAD
-                    <Nav variant="tabs" defaultActiveKey="/home">
-                        <Nav.Item>
-                            <Nav.Link href="/home">Materi</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="link-1">Tugas</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="disabled">Forum</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-
-                    <br />
-                    
-                    <CardListMateri /> <br />
-
-                </Col>
-            </Row>
-        </div>
-    )
-}
-=======
       <Row>
         <Col sm={3}>
           <Card>
@@ -126,7 +103,6 @@ const ViewCard = () => {
     </div>
   );
 };
->>>>>>> b839f050c6325793cf098cac989fd5f640f5a1ef
 
 export default ViewCard;
 

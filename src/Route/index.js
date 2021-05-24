@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from "react-router-dom";
 
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +27,7 @@ import {
   ViewTugas,
   KelasTerbuka,
   KelasTambah,
-  DetailTugas
+  DetailTugas,
 } from "../pages";
 
 const NavBar = () => {
@@ -29,43 +35,47 @@ const NavBar = () => {
   const [show, setShow] = useState(false);
   const [showBuat, setShowBuat] = useState(false);
   const [viewNavClass, setViewNavClass] = useState(true);
-  const [kodeKelas, setKodeKelas] = useState()
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-  const [error, setError] = useState(null)
-  const history = useHistory()
+  const [kodeKelas, setKodeKelas] = useState();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [error, setError] = useState(null);
+  const history = useHistory();
 
   // function
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setError(null);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
   const handleCloseBuat = () => setShowBuat(false);
   const handleShowBuat = () => setShowBuat(true);
 
   const btnMasukKelas = (e) => {
-    e.preventDefault()
-    fetch('http://127.0.0.1:8000/kelas/join', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://127.0.0.1:8000/kelas/join", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: user.id,
-        kode: kodeKelas
-      })
+        kode: kodeKelas,
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
+      .then((response) => response.json())
+      .then((responseJson) => {
         if (responseJson == true) {
-          setShow(false)
-          setKodeKelas('')
-          history.push('/')
+          setShow(false);
+          setKodeKelas("");
+          setError(null);
+          history.push("/");
         } else {
-          e.preventDefault()
-          setError(responseJson)
+          e.preventDefault();
+          setError(responseJson);
         }
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const classes = styles();
 
@@ -75,9 +85,6 @@ const NavBar = () => {
         <div className={classes.titleNavbar}>
           <Link to={"/"} className={classes.textAStyle}>
             <h2 className={classes.titleNavbarText}> ClassRoom </h2>
-          </Link>
-          <Link to={"/login"} onClick={() => localStorage.clear()} className={classes.textAStyle}>
-            <h2 className={classes.titleNavbarText}> Logout </h2>
           </Link>
         </div>
 
@@ -128,7 +135,6 @@ const NavBar = () => {
                 <Form className={classes.formInsertCode}>
                   <Row>
                     {/* STYLE KELAS TIDAK DITEMUKAN */}
-                    <h4>{error != null ? error : null}</h4>
                     <Col sm={8}>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Control
@@ -136,12 +142,19 @@ const NavBar = () => {
                           placeholder="Masukkan kode kelas"
                           required
                           value={kodeKelas}
-                          onChange={e => setKodeKelas(e.target.value)}
+                          onChange={(e) => setKodeKelas(e.target.value)}
                         />
+                        <h6 className={classes.textError}>
+                          {error != null ? error : null}
+                        </h6>
                       </Form.Group>
                     </Col>
                     <Col sm={4}>
-                      <Button variant="primary" type="submit" onClick={btnMasukKelas}>
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        onClick={btnMasukKelas}
+                      >
                         {" "}
                         Submit{" "}
                       </Button>
@@ -160,13 +173,35 @@ const NavBar = () => {
             </Modal>
           </li>
           <li className={classes.liNavigation}>
-            <Link to={"/profile"} className={classes.linkNavigationText}>
-              <Image
-                src={user.foto}
-                className={classes.imagesProfile}
-                roundedCircle
-              />
-            </Link>
+            {/* <Link to={"/profile"} className={classes.linkNavigationText}> */}
+
+            <OverlayTrigger
+              trigger="focus"
+              key="left"
+              placement="bottom"
+              overlay={
+                <Popover id="popover-positioned-left">
+                  <Popover.Content>
+                    <Link
+                      to={"/login"}
+                      onClick={() => localStorage.clear()}
+                      className={classes.pop}
+                    >
+                      Logout
+                    </Link>
+                  </Popover.Content>
+                </Popover>
+              }
+            >
+              <Button className={classes.addClassBTN}>
+                <Image
+                  src={user.foto}
+                  className={classes.imagesProfile}
+                  roundedCircle
+                />
+              </Button>
+            </OverlayTrigger>
+            {/* </Link> */}
           </li>
         </ul>
       </div>
@@ -193,6 +228,11 @@ const NavBar = () => {
 export default NavBar;
 
 const styles = createUseStyles({
+  textError: {
+    marginTop: 5,
+    color: Color.red,
+    fontSize: 15,
+  },
   textAStyle: {
     color: "#1D1D1D",
     "&:hover": {

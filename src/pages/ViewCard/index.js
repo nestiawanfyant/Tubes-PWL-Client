@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,6 +21,22 @@ import { Profile, ViewMateri, ViewTugas } from '../../pages'
 
 const ViewCard = () => {
   const styles = style();
+  const { name } = useParams()
+  const [kelas, setKelas] = useState(
+    {
+      nama: '',
+      deskripsi: '',
+    }
+  )
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/kelas/show?' + 'slug=' + name)
+      .then(response => response.json())
+      .then(responseJson => {
+        setKelas(responseJson)
+      })
+      .catch(e => console.log(e));
+  })
 
   return (
     <div className={styles.ViewContainer}>
@@ -32,10 +48,10 @@ const ViewCard = () => {
         />
         <Card.ImgOverlay className={styles.imgOVerly}>
           <Card.Title className={styles.textTitle}>
-            Metodologi Penelitian
+            {kelas.nama}
           </Card.Title>
           <Card.Text className={styles.textContent}>
-            Jumat, 14.00 - 15.40 WIB, Semester Genap T.A. 2020/2021
+            {kelas.deskripsi}
           </Card.Text>
           {/* <Card.Text>Last updated 3 mins ago</Card.Text> */}
         </Card.ImgOverlay>
@@ -63,7 +79,9 @@ const ViewCard = () => {
             <Route path="/kelas/:name/materi">
               <ViewMateri />
             </Route>
-            <Route path="/kelas/:name/tugas" component={ViewTugas} />
+            <Route path="/kelas/:name/tugas">
+              <ViewTugas />
+            </Route>
             <Route path="/kelas/:name/forum" component={Profile} />
           </Switch>
           {/* <Nav variant="tabs" defaultActiveKey="/home">

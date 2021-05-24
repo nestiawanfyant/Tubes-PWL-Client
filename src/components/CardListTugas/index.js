@@ -27,7 +27,7 @@ const CardListKelas = ({ nama, user, deskripsi, id, deadline, slug }) => {
   // };
   return (
     <Card>
-      <BrowserRouter className={styles.linkheaderCard}>
+      <Link to={'tugas/' + slug}>
         <Card.Body className={styles.cardContenHeader}>
           <div className={styles.boxHeader}>
             <Image
@@ -46,7 +46,7 @@ const CardListKelas = ({ nama, user, deskripsi, id, deadline, slug }) => {
             </div>
           </div>
         </Card.Body>
-      </BrowserRouter>
+      </Link>
     </Card>
   );
 };

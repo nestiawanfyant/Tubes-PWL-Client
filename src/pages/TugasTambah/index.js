@@ -28,7 +28,7 @@ const TugasTambah = ({ slug }) => {
   const handleShow = () => setShow(false);
 
   const handleSubmit = (event) => {
-    console.log(selectedDate.toDateString())
+
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
@@ -37,13 +37,26 @@ const TugasTambah = ({ slug }) => {
 
     setValidated(true);
 
+    const waktu = selectedDate
+    const tahun = waktu.getFullYear()
+    let bulan = waktu.getMonth() + 1
+    bulan = bulan >= 10 ? bulan : '0' + bulan
+    let tanggal = waktu.getDate()
+    tanggal = tanggal >= 10 ? tanggal : '0' + tanggal
+    let jam = waktu.getHours()
+    jam = jam >= 10 ? jam : '0' + jam
+    let minute = waktu.getMinutes()
+    minute = minute >= 10 ? minute : '0' + jam
+    console.log(tahun + ' ' + bulan + ' ' + tanggal + ' ' + jam + ' ' + minute)
+
     const data = new FormData()
     data.append('nama', nama)
     data.append('deskripsi', deskripsi)
     data.append('file', file)
-    data.append('deadline', selectedDate)
+    data.append('deadline', bulan + '-' + tanggal + '-' + tahun + ' ' + jam + ':' + minute)
     data.append('slug', slug)
     data.append('id', user.id)
+    data.append('slug', slug)
 
     fetch('http://127.0.0.1:8000/tugas/store', {
       method: 'POST',

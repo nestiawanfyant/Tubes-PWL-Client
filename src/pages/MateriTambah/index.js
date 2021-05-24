@@ -53,9 +53,10 @@ const MateriTambah = ({ slug }) => {
         if (responseJson.error != null) {
           setError(responseJson.error)
         } else {
-          setNama(null)
-          setDeskripsi(null)
-          setFile(null)
+          setNama('')
+          setDeskripsi('')
+          setFile('')
+          setShow(false)
         }
       })
       .catch(e => console.log(e));

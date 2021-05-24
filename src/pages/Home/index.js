@@ -27,7 +27,7 @@ const Home = () => {
         setKelas(responseJson)
       })
       .catch(e => console.log(e));
-  }, [])
+  }, [kelas])
 
   return (
     <div className={classes.container}>

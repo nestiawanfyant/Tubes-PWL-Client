@@ -11,7 +11,7 @@ import "../../assets/css/font.css";
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from "react-icons/bi";
 
-const cardListMateri = ({ nama, user, deskripsi, id }) => {
+const cardListMateri = ({ nama, user, deskripsi, id, slug }) => {
   const styles = style();
 
   return (

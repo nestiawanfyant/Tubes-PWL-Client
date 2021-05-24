@@ -3,7 +3,15 @@ import { createUseStyles } from "react-jss";
 import { Link, useHistory } from "react-router-dom";
 
 //bootstrap
-import { Image, Popover, Button, Modal, Form, Col, InputGroup } from "react-bootstrap";
+import {
+  Image,
+  Popover,
+  Button,
+  Modal,
+  Form,
+  Col,
+  InputGroup,
+} from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 // assets
@@ -15,15 +23,26 @@ import "../../assets/css/font.css";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskripsi, kelasId, tipe }) => {
+const CardKelas = ({
+  title,
+  dosen,
+  gambar,
+  kode,
+  link,
+  user,
+  kelasUser,
+  deskripsi,
+  kelasId,
+  tipe,
+}) => {
   const classes = styles();
   // State
   const [show, setShow] = useState(false);
-  const [nama, setNama] = useState(title)
-  const [getDeskripsi, setDeskripsi] = useState(deskripsi)
+  const [nama, setNama] = useState(title);
+  const [getDeskripsi, setDeskripsi] = useState(deskripsi);
   const [showHapus, setShowHapus] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
 
   // function
   const handleClose = () => setShow(false);
@@ -35,64 +54,64 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
 
   const btnEditKelas = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:8000/kelas/update', {
-      method: 'POST',
+    fetch("http://127.0.0.1:8000/kelas/update", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: user,
         id: kelasId,
         nama: nama,
-        deskripsi: deskripsi
-      })
+        deskripsi: deskripsi,
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        handleCloseEdit()
+      .then((response) => response.json())
+      .then((responseJson) => {
+        handleCloseEdit();
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const btnKeluarKelas = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:8000/kelas/keluar', {
-      method: 'POST',
+    fetch("http://127.0.0.1:8000/kelas/keluar", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: user,
         kelas: kelasId,
-      })
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        history.push('/')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        history.push("/");
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   const btnHapusKelas = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:8000/kelas/destroy', {
-      method: 'POST',
+    fetch("http://127.0.0.1:8000/kelas/destroy", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         kelas_id: kelasId,
-      })
+      }),
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        history.push('/')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        history.push("/");
       })
-      .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   return (
     <div className={classes.cardContainer}>
@@ -104,7 +123,6 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
           >
             <div className={classes.titleHeader}>{title}</div>
             <div className={classes.textHeader}>{dosen}</div>
-            {tipe == '1' ? <div className={classes.time}>Kode : {kode}</div> : <div className={classes.time}>Kelas Terbuka</div>}
           </Link>
         </div>
         <div className={classes.box2}>
@@ -118,10 +136,14 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
                 {user === kelasUser ? (
                   <>
                     <Popover.Content>
-                      <Link className={classes.pop} onClick={handleShowHapus}>Hapus Kelas</Link>
+                      <Link className={classes.pop} onClick={handleShowHapus}>
+                        Hapus Kelas
+                      </Link>
                     </Popover.Content>
                     <Popover.Content>
-                      <Link className={classes.pop} onClick={handleShowEdit}>Edit Kelas</Link>
+                      <Link className={classes.pop} onClick={handleShowEdit}>
+                        Edit Kelas
+                      </Link>
                     </Popover.Content>
                   </>
                 ) : null}
@@ -162,8 +184,8 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
             <Modal.Body>
               {/* <Form> */}
               <h5>
-                Menghapus Kelas akan menghilangkan semua data didalam kelas, apakah anda yakin ingin menghapus kelas
-                {" "}
+                Menghapus Kelas akan menghilangkan semua data didalam kelas,
+                apakah anda yakin ingin menghapus kelas{" "}
                 <b className={classes.bold}>{title}</b>
               </h5>
               {/* </Form> */}
@@ -194,7 +216,7 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
                     <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">
                       Wajib mencamtumkan nama kelas
-                  </Form.Control.Feedback>
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group
                     as={Col}
@@ -218,14 +240,13 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
               <Modal.Footer>
                 <Button className={classes.button} onClick={btnEditKelas}>
                   Edit
-              </Button>
+                </Button>
                 <Button variant="light" onClick={handleCloseEdit}>
                   Batal
-              </Button>
+                </Button>
               </Modal.Footer>
             </Form>
           </Modal>
-
 
           {/* <img src={Mola} alt="kucing"> */}
           <Image src={gambar} alt="kucing" className={classes.imageHeader} />
@@ -247,8 +268,14 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
         </div>
       </div>
       <div className={classes.cardFooter}>
-        <BiMessageAdd className={classes.iconFooter} />
-        <BiMessageDots className={classes.iconFooter} />
+        {tipe == "1" ? (
+          <div className={classes.time}>Kode : {kode}</div>
+        ) : (
+          <div className={classes.time}>Kelas Terbuka</div>
+        )}
+
+        {/* <BiMessageAdd className={classes.iconFooter} />
+        <BiMessageDots className={classes.iconFooter} /> */}
       </div>
     </div>
   );
@@ -302,12 +329,6 @@ const styles = createUseStyles({
     fontSize: 15,
     color: Color.white,
     fontFamily: "DM Sans",
-  },
-  time: {
-    marginTop: 10,
-    fontSize: 12,
-    fontFamily: "DM Sans",
-    color: Color.white,
   },
   imageHeader: {
     width: 60,
@@ -368,9 +389,16 @@ const styles = createUseStyles({
     // backgroundColor: Color.secondary,
     height: 50,
     display: "flex",
-    justifyContent: "flex-end",
-    aligItems: "stretch",
+    justifyContent: "center",
+    aligItems: "center",
     borderTop: "1px solid #f5f5f5",
+  },
+  time: {
+    // marginTop: 10,
+    margin: "auto 0",
+    fontSize: 14,
+    fontFamily: "DM Sans",
+    color: Color.primary,
   },
   iconFooter: {
     marginRight: 20,

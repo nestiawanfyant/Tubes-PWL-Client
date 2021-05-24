@@ -25,6 +25,7 @@ const Home = () => {
       .then(response => response.json())
       .then(responseJson => {
         setKelas(responseJson)
+        console.log(responseJson)
       })
       .catch(e => console.log(e));
   }, [kelas])
@@ -42,6 +43,7 @@ const Home = () => {
                 user={user.id}
                 title={value.kelas.nama}
                 dosen={value.kelas.user.nama}
+                kode={value.kelas.kode}
                 deskripsi={value.kelas.deskripsi}
                 gambar="https://picsum.photos/200/300"
                 link={value.kelas.slug}

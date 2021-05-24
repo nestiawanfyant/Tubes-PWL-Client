@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //bootstrap
-import { Image, Popover, Button, Modal, Form, Col,InputGroup } from "react-bootstrap";
+import { Image, Popover, Button, Modal, Form, Col, InputGroup } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 // assets
@@ -15,12 +15,15 @@ import "../../assets/css/font.css";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskripsi }) => {
+const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskripsi, kelasId, tipe }) => {
   const classes = styles();
   // State
   const [show, setShow] = useState(false);
+  const [nama, setNama] = useState(title)
+  const [getDeskripsi, setDeskripsi] = useState(deskripsi)
   const [showHapus, setShowHapus] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const history = useHistory()
 
   // function
   const handleClose = () => setShow(false);
@@ -29,6 +32,68 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
   const handleShowHapus = () => setShowHapus(true);
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
+
+  const btnEditKelas = (e) => {
+    e.preventDefault();
+    fetch('http://127.0.0.1:8000/kelas/update', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: user,
+        id: kelasId,
+        nama: nama,
+        deskripsi: deskripsi
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        handleCloseEdit()
+      })
+      .catch(e => console.log(e));
+  }
+
+  const btnKeluarKelas = (e) => {
+    e.preventDefault();
+    fetch('http://127.0.0.1:8000/kelas/keluar', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: user,
+        kelas: kelasId,
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        history.push('/')
+      })
+      .catch(e => console.log(e));
+  }
+
+  const btnHapusKelas = (e) => {
+    e.preventDefault();
+    fetch('http://127.0.0.1:8000/kelas/destroy', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        kelas_id: kelasId,
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        history.push('/')
+      })
+      .catch(e => console.log(e));
+  }
+
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
@@ -39,7 +104,7 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
           >
             <div className={classes.titleHeader}>{title}</div>
             <div className={classes.textHeader}>{dosen}</div>
-            <div className={classes.time}>Kode : {kode}</div>
+            {tipe == '1' ? <div className={classes.time}>Kode : {kode}</div> : <div className={classes.time}>Kelas Terbuka</div>}
           </Link>
         </div>
         <div className={classes.box2}>
@@ -77,14 +142,14 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
           <Modal show={show} onHide={handleClose}>
             <Modal.Body>
               {/* <Form> */}
-              <h3>
+              <h5>
                 Apakah anda yakin ingin keluar dari{" "}
                 <b className={classes.bold}>{title}</b>
-              </h3>
+              </h5>
               {/* </Form> */}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="light" >
+              <Button variant="light" onClick={btnKeluarKelas}>
                 Ya, Keluar
               </Button>
               <Button className={classes.button} onClick={handleClose}>
@@ -96,15 +161,15 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
           <Modal show={showHapus} onHide={handleCloseHapus}>
             <Modal.Body>
               {/* <Form> */}
-              <h3>
-                Menghapus Kelas akan menghilangkan semua data didalam kelas, apakah anda yakin ingin menghapus kelas 
+              <h5>
+                Menghapus Kelas akan menghilangkan semua data didalam kelas, apakah anda yakin ingin menghapus kelas
                 {" "}
                 <b className={classes.bold}>{title}</b>
-              </h3>
+              </h5>
               {/* </Form> */}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="light" >
+              <Button variant="light" onClick={btnHapusKelas}>
                 Ya, Hapus
               </Button>
               <Button className={classes.button} onClick={handleCloseHapus}>
@@ -114,49 +179,51 @@ const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskrips
           </Modal>
           {/* modal edit kelas */}
           <Modal show={showEdit} onHide={handleCloseEdit}>
-            <Modal.Body>
-              <Form.Row>
-                <Form.Group as={Col} md="12" controlId="validationCustom01">
-                  <Form.Label className={classes.text}>Nama</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    placeholder="Nama"
-                    // onChange={(e) => setNama(e.target.value)}
-                    value={title}
-                  />
-                  <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
-                  <Form.Control.Feedback type="invalid">
-                    Wajib mencamtumkan nama kelas
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group
-                  as={Col}
-                  md="12"
-                  controlId="validationCustomUsername"
-                >
-                  <Form.Label className={classes.text}>Deskripsi</Form.Label>
-                  <InputGroup hasValidation>
+            <Form>
+              <Modal.Body>
+                <Form.Row>
+                  <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Label className={classes.text}>Nama</Form.Label>
                     <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Waktu pembelajaran"
-                      // onChange={(e) => setDeskripsi(e.target.value)}
-                      value={deskripsi}
+                      required
+                      type="text"
+                      placeholder="Nama"
+                      onChange={(e) => setNama(e.target.value)}
+                      value={nama}
                     />
-                    <Form.Control.Feedback>(Opsional)</Form.Control.Feedback>
-                  </InputGroup>
-                </Form.Group>
-              </Form.Row>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button className={classes.button}>
-                Edit
+                    <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      Wajib mencamtumkan nama kelas
+                  </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group
+                    as={Col}
+                    md="12"
+                    controlId="validationCustomUsername"
+                  >
+                    <Form.Label className={classes.text}>Deskripsi</Form.Label>
+                    <InputGroup hasValidation>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Waktu pembelajaran"
+                        onChange={(e) => setDeskripsi(e.target.value)}
+                        value={getDeskripsi}
+                      />
+                      <Form.Control.Feedback>(Opsional)</Form.Control.Feedback>
+                    </InputGroup>
+                  </Form.Group>
+                </Form.Row>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button className={classes.button} onClick={btnEditKelas}>
+                  Edit
               </Button>
-              <Button variant="light" onClick={handleCloseEdit}>
-                Batal
+                <Button variant="light" onClick={handleCloseEdit}>
+                  Batal
               </Button>
-            </Modal.Footer>
+              </Modal.Footer>
+            </Form>
           </Modal>
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, useHistory } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,11 +11,44 @@ import "../../assets/css/font.css";
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from "react-icons/bi";
 
-const CardListKelas = ({ title, pengampu, gambar, deskripsi }) => {
+const CardListKelas = ({ title, pengampu, gambar, deskripsi, id }) => {
   const styles = style();
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [motivasi, setMotivasi] = useState('')
+  const [error, setError] = useState(null)
+  const history = useHistory()
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const btnKelasTerbuka = (e) => {
+    e.preventDefault()
+
+    fetch('http://127.0.0.1:8000/kelas/terbuka/join', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: user.id,
+        kelas: id,
+        motivasi: motivasi
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (!responseJson) {
+          setMotivasi('')
+          setError(null)
+          history.push('/')
+        } else {
+          e.preventDefault()
+          setError('Masukkan motivasi anda')
+        }
+      })
+      .catch(e => console.log(e));
+  }
 
   return (
     <Card>
@@ -50,13 +83,22 @@ const CardListKelas = ({ title, pengampu, gambar, deskripsi }) => {
                   <p> Masukkan motivasi singkat mengikuti kelas {title} </p>
                   <Form className={styles.formInsertCode}>
                     <Row>
+                      {/* STYLE ERROR RESPONSE */}
+                      {error != null ? <h4>{error}</h4> : null}
                       <Col sm={8}>
                         <Form.Group controlId="formBasicEmail">
-                          <Form.Control type="text" placeholder="Motivasimu" />
+                          <Form.Control
+                            as="textarea"
+                            rows={3}
+                            placeholder="Motivasi singkat"
+                            required
+                            value={motivasi}
+                            onChange={e => setMotivasi(e.target.value)}
+                          />
                         </Form.Group>
                       </Col>
                       <Col sm={4}>
-                        <Button className={styles.button}>Bergabung</Button>
+                        <Button className={styles.button} onClick={btnKelasTerbuka}>Bergabung</Button>
                       </Col>
                     </Row>
                   </Form>

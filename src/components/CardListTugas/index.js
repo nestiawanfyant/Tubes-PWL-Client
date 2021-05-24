@@ -16,7 +16,7 @@ import {
   BsXCircle,
 } from "react-icons/bs";
 
-const CardListKelas = () => {
+const CardListKelas = ({ nama, user, deskripsi, id, deadline, slug }) => {
   const styles = style();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -36,13 +36,13 @@ const CardListKelas = () => {
               roundedCircle
             />
             <div className={styles.nameCardTitle}>
-              <p className={styles.textCardTitle}>Tugas Pertemuan 1</p>
-              <p className={styles.textCardPengampu}>24/02/2021 - 23:59 WIB</p>
+              <p className={styles.textCardTitle}>{nama}</p>
+              <p className={styles.textCardPengampu}>{deadline}</p>
             </div>
           </div>
           <div className={styles.boxStatus}>
             <div className={styles.textStatus}>
-              Belum Mengumpul <BsClock className={styles.iconStatus}/>
+              Belum Mengumpul <BsClock className={styles.iconStatus} />
             </div>
           </div>
         </Card.Body>

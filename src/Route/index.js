@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,12 +29,42 @@ const NavBar = () => {
   const [show, setShow] = useState(false);
   const [showBuat, setShowBuat] = useState(false);
   const [viewNavClass, setViewNavClass] = useState(true);
+  const [kodeKelas, setKodeKelas] = useState()
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [error, setError] = useState(null)
+  const history = useHistory()
 
   // function
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseBuat = () => setShowBuat(false);
   const handleShowBuat = () => setShowBuat(true);
+
+  const btnMasukKelas = (e) => {
+    e.preventDefault()
+    fetch('http://127.0.0.1:8000/kelas/join', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: user.id,
+        kode: kodeKelas
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson) {
+          setShow(false)
+          history.push('/')
+        } else {
+          e.preventDefault()
+          setError("Kode kelas tidak ditemukan")
+        }
+      })
+      .catch(e => console.log(e));
+  }
 
   const classes = styles();
 
@@ -65,7 +95,7 @@ const NavBar = () => {
                   <Popover id="popover-positioned-left">
                     <Popover.Content>
                       <Link className={classes.pop} onClick={handleShow}>
-                        Tambah Kelas
+                        Masuk Kelas
                       </Link>
                     </Popover.Content>
                     <Popover.Content>
@@ -90,22 +120,27 @@ const NavBar = () => {
 
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Tambah Kelas</Modal.Title>
+                <Modal.Title>Masuk Kelas</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <p className={styles.label}>Kode Kelas </p>
                 <Form className={classes.formInsertCode}>
                   <Row>
+                    {/* STYLE KELAS TIDAK DITEMUKAN */}
+                    <h4>{error != null ? error : null}</h4>
                     <Col sm={8}>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Control
                           type="text"
                           placeholder="Masukkan kode kelas"
+                          required
+                          value={kodeKelas}
+                          onChange={e => setKodeKelas(e.target.value)}
                         />
                       </Form.Group>
                     </Col>
                     <Col sm={4}>
-                      <Button variant="primary" type="submit">
+                      <Button variant="primary" type="submit" onClick={btnMasukKelas}>
                         {" "}
                         Submit{" "}
                       </Button>
@@ -139,7 +174,9 @@ const NavBar = () => {
           <Route exact path="/" component={Home} />
           <Route path="/profile" component={Profile} />
           <Route path="/kelas/:name/peserta" component={ListPeserta} />
-          <Route path="/kelas/:name" component={ViewCard} />
+          <Route path="/kelas/:name">
+            <ViewCard />
+          </Route>
           <Route exact path="/kelasterbuka" component={KelasTerbuka} />
           {/* <Route path="/tambah/kelas/" component={Login} /> */}
         </Switch>

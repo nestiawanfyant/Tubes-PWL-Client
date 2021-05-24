@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 //datetime picker
 import DateMomentUtils from "@date-io/moment";
 import {
-  DatePicker,
-  TimePicker,
   DateTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
@@ -16,10 +13,6 @@ import { Button } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
 //assets
 import { Color } from "../../assets/color";
-//components
-import { CardListTugas } from "../../components";
-//icon
-import { FiFileText, FiX } from "react-icons/fi";
 
 const TugasTambah = ({ slug }) => {
   const classes = styles();
@@ -35,6 +28,7 @@ const TugasTambah = ({ slug }) => {
   const handleShow = () => setShow(false);
 
   const handleSubmit = (event) => {
+    console.log(selectedDate.toDateString())
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
@@ -96,7 +90,7 @@ const TugasTambah = ({ slug }) => {
           : null
         }
         <Form.Row>
-          {selectedDate}
+          {/* {selectedDate} */}
           <Form.Group as={Col} md="12" controlId="validationCustom01">
             <Form.Label className={classes.text}>Topik</Form.Label>
             <Form.Control

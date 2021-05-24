@@ -21,9 +21,14 @@ import { CardListTugas } from "../../components";
 //icon
 import { FiFileText, FiX } from "react-icons/fi";
 
-const TugasTambah = () => {
+const TugasTambah = ({ slug }) => {
   const classes = styles();
   const [validated, setValidated] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [nama, setNama] = useState(null)
+  const [deskripsi, setDeskripsi] = useState(null)
+  const [file, setFile] = useState(null)
+  const [error, setError] = useState(null)
   const [selectedDate, handleDateChange] = useState(new Date());
   const [show, setShow] = useState(true);
   // function
@@ -31,24 +36,75 @@ const TugasTambah = () => {
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     }
 
     setValidated(true);
+
+    const data = new FormData()
+    data.append('nama', nama)
+    data.append('deskripsi', deskripsi)
+    data.append('file', file)
+    data.append('deadline', selectedDate)
+    data.append('slug', slug)
+    data.append('id', user.id)
+
+    fetch('http://127.0.0.1:8000/tugas/store', {
+      method: 'POST',
+      enctype: 'multipart/form-data',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: data
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.error != null) {
+          setError(responseJson.error)
+        } else {
+          setNama('')
+          setDeskripsi('')
+          setFile('')
+          handleDateChange(new Date())
+          setShow(false)
+        }
+      })
+      .catch(e => console.log(e));
   };
 
   return (
     <div className={classes.container}>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        {error ?
+          <ul>
+            {
+              Object.keys(error).map(
+                data => {
+                  return (
+                    error[data].map(
+                      (value, i) => {
+                        // Styling error disini
+                        return (<li>{value}</li>)
+                      })
+                  )
+                }
+              )
+            }
+          </ul>
+          : null
+        }
         <Form.Row>
+          {selectedDate}
           <Form.Group as={Col} md="12" controlId="validationCustom01">
             <Form.Label className={classes.text}>Topik</Form.Label>
             <Form.Control
               required
               type="text"
               placeholder="Ingin membahas apa selanjutnya ?"
+              value={nama}
+              onChange={e => setNama(e.target.value)}
             />
             <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
@@ -62,6 +118,8 @@ const TugasTambah = () => {
                 as="textarea"
                 rows={3}
                 placeholder="Deskripsikan gambaran umum topik"
+                value={deskripsi}
+                onChange={e => setDeskripsi(e.target.value)}
               />
               <Form.Control.Feedback>(Opsional)</Form.Control.Feedback>
             </InputGroup>
@@ -72,7 +130,7 @@ const TugasTambah = () => {
               <MuiPickersUtilsProvider utils={DateMomentUtils}>
                 <DateTimePicker
                   variant="inline"
-                  format="yyyy/MM/DD HH:mm"
+                  format="MM/DD/yyy HH:mm"
                   disablePast
                   ampm={false}
                   value={selectedDate}
@@ -87,7 +145,7 @@ const TugasTambah = () => {
             <Form.Label className={classes.text}>File Pendukung</Form.Label>
             <br />
             <Form.Label className={classes.text}>
-              <Form.File id="exampleFormControlFile1" name="file" required />
+              <Form.File id="exampleFormControlFile1" name="file" required accept=".png, .jpg, .jpeg, .zip, .doc, .docx, .pdf" onChange={e => setFile(e.target.files[0])} />
               {/* ini buat edit */}
               {/* {show ? (
                 <div>

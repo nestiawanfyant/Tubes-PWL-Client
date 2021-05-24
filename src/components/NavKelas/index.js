@@ -35,7 +35,7 @@ const NavKelas = () => {
       </li>
       <li className={classes.liNavigationClass}>
         <Link
-          to={"/detailTugas"}
+          to={"tugas"}
           className={classes.linkNavigationTextClass}
         >
           Tugas

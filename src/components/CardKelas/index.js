@@ -15,7 +15,7 @@ import "../../assets/css/font.css";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
+const CardKelas = ({ title, dosen, gambar, deskripsi, link, user, kelasUser }) => {
   const classes = styles();
   return (
     <div className={classes.cardContainer}>
@@ -38,12 +38,17 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
             overlay={
               //   <Popover id={`popover-positioned-${placement}`}>
               <Popover id="popover-positioned-left">
-                <Popover.Content>
-                  <Link className={classes.pop}>Hapus Kelas</Link>
-                </Popover.Content>
-                <Popover.Content>
-                  <Link className={classes.pop}>Edit Kelas</Link>
-                </Popover.Content>
+                {
+                  user === kelasUser ?
+                    <>
+                      <Popover.Content>
+                        <Link className={classes.pop}>Hapus Kelas</Link>
+                      </Popover.Content>
+                      <Popover.Content>
+                        <Link className={classes.pop}>Edit Kelas</Link>
+                      </Popover.Content>
+                    </> : null
+                }
                 <Popover.Content>
                   <Link className={classes.pop}>Keluar Kelas</Link>
                 </Popover.Content>
@@ -207,6 +212,7 @@ const styles = createUseStyles({
   },
   addClassBTN: {
     backgroundColor: "transparent",
+    alignSelf: "flex-end",
     padding: 0,
     border: "none",
     "&:hover": {

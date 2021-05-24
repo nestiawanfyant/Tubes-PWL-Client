@@ -37,6 +37,7 @@ const Home = () => {
           kelas.length > 0 ?
             kelas.map((value) => {
               return <CardKelas
+                key={value.id}
                 title={value.kelas.nama}
                 dosen={value.kelas.user.nama}
                 deskripsi={value.kelas.deskripsi}

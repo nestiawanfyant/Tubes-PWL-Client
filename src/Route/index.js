@@ -174,6 +174,9 @@ const NavBar = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/profile" component={Profile} />
+          <Route path="/kelas/:name/tugas/:id">
+            <DetailTugas />
+          </Route>
           <Route path="/kelas/:name/peserta" component={ListPeserta} />
           <Route path="/detailTugas" component={DetailTugas} />
           <Route path="/kelas/:name">

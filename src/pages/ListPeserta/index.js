@@ -11,6 +11,8 @@ import { useParams } from 'react-router-dom'
 function ListPeserta() {
   const styles = style();
   const { name } = useParams()
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [role, setRole] = useState('3')
   const [guru, setGuru] = useState([])
   const [asisten, setAsisten] = useState([])
   const [siswa, setSiswa] = useState([])
@@ -22,6 +24,13 @@ function ListPeserta() {
       .then(response => response.json())
       .then(responseJson => {
         setTipe(responseJson)
+      })
+      .catch(e => console.log(e))
+
+    fetch('http://127.0.0.1:8000/kelas/role?user=' + user.id + '&slug=' + name)
+      .then(response => response.json())
+      .then(responseJson => {
+        setRole(responseJson.role)
       })
       .catch(e => console.log(e))
 
@@ -51,7 +60,7 @@ function ListPeserta() {
                       key={data.id}
                       id={data.id}
                       nama={data.user.nama}
-                      gambar="https://picsum.photos/200/300"
+                      gambar={data.user.foto}
                       motivasi={data.essay}
                     />)
                 })
@@ -63,35 +72,41 @@ function ListPeserta() {
       <TextHeader title="Guru " />
       {
         guru.length > 0 ? guru.map(data => {
-          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} owner={data.id} />
         }) : null
       }
 
       <TextHeader title="Asisten" />
       {/* untuk asisten kosong */}
-      <div className={styles.none}>
-        <GiRobe className={styles.icon} />
-        <text className={styles.text}>
-          Tambah asisten untuk meringankan pundakmu
+      { asisten.length > 0 ? null :
+        <div className={styles.none}>
+          <GiRobe className={styles.icon} />
+          <text className={styles.text}>
+            Tambah asisten untuk meringankan pundakmu
         </text>
-      </div>
+        </div>
+      }
+
       {
         asisten.length > 0 ? asisten.map(data => {
-          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} />
         }) : null
       }
 
       <TextHeader title="Siswa" />
       {/* untuk siswa kosong */}
-      <div className={styles.none}>
-        <GiCoffeeCup className={styles.icon} />
-        <text className={styles.text}>
-          Sebaik baiknya ilmu adalah ilmu yang disebarluaskan
-        </text>
-      </div>
+      {siswa.length > 0 ? null :
+        <div className={styles.none}>
+          <GiCoffeeCup className={styles.icon} />
+          <text className={styles.text}>
+            Sebaik baiknya ilmu adalah ilmu yang disebarluaskan
+      </text>
+        </div>
+      }
+
       {
         siswa.length > 0 ? siswa.map(data => {
-          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} />
         }) : null
       }
     </div>

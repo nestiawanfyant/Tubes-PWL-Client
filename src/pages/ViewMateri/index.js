@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,9 +12,21 @@ import { BiPlus } from "react-icons/bi";
 import { CardListMateri } from "../../components";
 // page for route
 import { MateriTambah } from "../../pages";
+import { useParams } from 'react-router-dom'
 
 const ViewMateri = () => {
   const styles = style();
+  const { name } = useParams()
+  const [materi, setMateri] = useState([])
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/materi/list?' + 'slug=' + name)
+      .then(response => response.json())
+      .then(responseJson => {
+        setMateri(responseJson)
+      })
+      .catch(e => console.log(e));
+  }, [materi])
 
   return (
     <div>
@@ -27,15 +39,19 @@ const ViewMateri = () => {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <MateriTambah />
+              <MateriTambah slug={name} />
             </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>
       <br />
-      <CardListMateri /> <br />
-      <CardListMateri /> <br />
-      <CardListMateri /> <br />
+      {
+        materi.length > 0 ? materi.map(data => {
+          return (<><CardListMateri key={data.id} nama={data.nama} user={data.user.nama} deskripsi={data.deskripsi} id={data.id} /> <br /></>)
+        }) :
+          <h3>Belum ada materi</h3>
+      }
+
     </div>
   );
 };

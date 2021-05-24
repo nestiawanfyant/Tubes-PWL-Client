@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
 
 //bootstrap
-import { Image, Popover } from "react-bootstrap";
+import { Image, Popover, Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 // assets
@@ -21,7 +21,10 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
         <div className={classes.box1}>
-          <Link to={"kelas/" + link + "/materi"} className={classes.textDecorationNone}>
+          <Link
+            to={"kelas/" + link + "/materi"}
+            className={classes.textDecorationNone}
+          >
             <div className={classes.titleHeader}>{title}</div>
             <div className={classes.time}>{deskripsi}</div>
             <div className={classes.textHeader}>{dosen}</div>
@@ -29,7 +32,7 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
         </div>
         <div className={classes.box2}>
           <OverlayTrigger
-            trigger="click"
+            trigger="focus"
             key="left"
             placement="left"
             overlay={
@@ -47,7 +50,10 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
               </Popover>
             }
           >
-            <FiSettings className={classes.iconHeader} />
+            <Button className={classes.addClassBTN}>
+              {" "}
+              <FiSettings className={classes.iconHeader} />
+            </Button>
           </OverlayTrigger>
 
           {/* <img src={Mola} alt="kucing"> */}
@@ -198,5 +204,24 @@ const styles = createUseStyles({
     color: Color.blackDoff,
     alignSelf: "center",
     fontSize: 25,
+  },
+  addClassBTN: {
+    backgroundColor: "transparent",
+    padding: 0,
+    border: "none",
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "none",
+    },
+    "&:focus": {
+      backgroundColor: "transparent",
+      border: "none",
+      boxShadow: "none",
+    },
+    "&:active": {
+      backgroundColor: "transparent",
+      border: "none",
+      boxShadow: "none",
+    },
   },
 });

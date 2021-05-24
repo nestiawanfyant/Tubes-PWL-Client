@@ -15,16 +15,16 @@ import "../../assets/css/font.css";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = ({ title, dosen, gambar }) => {
+const CardKelas = ({ title, dosen, gambar, deskripsi, link }) => {
   const classes = styles();
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
         <div className={classes.box1}>
-          <Link to={"kelas/metopen/materi"} className={classes.textDecorationNone}>
-            <div className={classes.titleHeader}>Pemrograman Web Lanjut</div>
-            <div className={classes.time}>Sabtu 14:00 - 16:00 </div>
-            <div className={classes.textHeader}>Fikri Halim ch</div>
+          <Link to={"kelas/" + link + "/materi"} className={classes.textDecorationNone}>
+            <div className={classes.titleHeader}>{title}</div>
+            <div className={classes.time}>{deskripsi}</div>
+            <div className={classes.textHeader}>{dosen}</div>
           </Link>
         </div>
         <div className={classes.box2}>
@@ -158,7 +158,7 @@ const styles = createUseStyles({
     "&:hover": {
       textDecorationColor: Color.white,
     },
-  },  
+  },
   pop: {
     fontSize: 15,
     color: Color.primary,

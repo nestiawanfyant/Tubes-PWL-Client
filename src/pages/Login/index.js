@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //bootstra
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,8 +15,9 @@ const Login = () => {
   const [error, setError] = useState(null)
   const [email, setEmail] = useState({ value: '', error: null })
   const [password, setPassword] = useState({ value: '', error: null })
+  const history = useHistory()
 
-  const Login = (e) => {
+  const submitLogin = (e) => {
     e.preventDefault()
     const re = /\S+@\S+\.\S+/
 
@@ -35,13 +36,15 @@ const Login = () => {
         })
           .then(response => response.json())
           .then(responseJson => {
-            console.log(responseJson)
+            console.log(responseJson.user)
             if (responseJson.user != null) {
-              localStorage.setItem('id', responseJson.user.id)
-              localStorage.setItem('token', responseJson.user.token)
+              localStorage.setItem('user', JSON.stringify(responseJson.user))
+              localStorage.setItem('token', responseJson.user.remember_token)
+              console.log(responseJson.user.remember_token)
               setError(null)
               setPassword({ ...password, value: '', error: null })
               setEmail({ ...email, value: '', error: null })
+              history.push('/')
             } else {
               setEmail({ ...email, error: null })
               setPassword({ ...password, error: null })
@@ -77,6 +80,11 @@ const Login = () => {
     setPassword({ ...password, value: e.target.value })
   }
 
+  useEffect(() => {
+    const isLogin = () => localStorage.getItem('token') ? history.push('/') : null
+    isLogin()
+  }, [])
+
   return (
     <Row>
       <Col sm={5} className={classes.box}>
@@ -98,7 +106,7 @@ const Login = () => {
             Belum memiliki akun ? <Link to={"/daftar"}>Daftar disini</Link>
           </h6>
 
-          <Button type="submit" className={classes.button} onClick={Login}>
+          <Button type="submit" className={classes.button} onClick={submitLogin}>
             Submit
           </Button>
         </Form>

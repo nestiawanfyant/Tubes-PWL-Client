@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 //components
 import { CardListKelas } from "../../components";
@@ -9,12 +9,27 @@ import { GiCoffeeCup, GiRobe } from "react-icons/gi";
 
 function KelasTerbuka() {
   const styles = style();
+  const [kelas, setKelas] = useState([])
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/kelas/terbuka')
+      .then(response => response.json())
+      .then(responseJson => {
+        setKelas(responseJson)
+      })
+      .catch(e => console.log(e));
+  }, [kelas])
 
   return (
     <div className={styles.container}>
-      <CardListKelas title="Pemrograman Web" pengampu="Fikri Halim Ch" gambar="https://picsum.photos/200/300" deskripsi="pokonya bakal banyak gitu isi nya <br/> tapi bisa ga ya ada br gini"/> <br/>
-      <CardListKelas title="Pemrograman Web" pengampu="Fikri Halim Ch" gambar="https://picsum.photos/200/300" deskripsi="pokonya bakal banyak gitu isi nya <br/> tapi bisa ga ya ada br gini"/> <br/>
-      <CardListKelas title="Pemrograman Web" pengampu="Fikri Halim Ch" gambar="https://picsum.photos/200/300" deskripsi="pokonya bakal banyak gitu isi nya <br/> tapi bisa ga ya ada br gini"/> <br/>
+      {
+        kelas.length > 0 ?
+          kelas.map(data => {
+            return <CardListKelas title={data.nama} id={data.id} pengampu={data.user.nama} gambar="https://picsum.photos/200/300" deskripsi={data.deskripsi ?? ''} />
+          }) :
+          <h5>Tidak ada kelas terbuka</h5>
+      }
+
     </div>
   );
 }

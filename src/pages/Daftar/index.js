@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //bootstra
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,56 +18,37 @@ const Login = () => {
   const [password, setPassword] = useState(null)
   const [passwordConfirmation, setPasswordConfirmation] = useState(null)
   const [foto, setFoto] = useState(null)
+  const history = useHistory()
 
   const Register = (e) => {
     e.preventDefault()
+    const data = new FormData()
+    data.append('email', email)
+    data.append('nama', nama)
+    data.append('password', password)
+    data.append('password_confirmation', passwordConfirmation)
+    data.append('foto', foto)
     fetch('http://127.0.0.1:8000/register', {
       method: 'POST',
       enctype: 'multipart/form-data',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        nama: nama,
-        email: email,
-        password: password,
-        password_confirmation: passwordConfirmation,
-        foto: foto
-      }),
+      body: data
     })
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.error != null) {
-          console.log(responseJson)
-
-          responseJson.error.nama.forEach(errorDataname => {
-              setNama(errorDataname);
-          });
-
-          responseJson.error.email.forEach(errorDataEmail => {
-              setEmail(errorDataEmail);
-          });
-
-          responseJson.error.password.forEach(errorDataPass => {
-            setPassword(errorDataPass);
-          });
-
-          responseJson.error.password_confirmation.forEach(errorDataPassCof => {
-            setPasswordConfirmation(errorDataPassCof);
-          });
-
-          responseJson.error.foto.forEach(errorDataFoto => {
-            setFoto(errorDataFoto);
-          });
-
-        } else {
-          // console.log(responseJson)
-          // console.log("tes")
-          setNama(responseJson.error.nama);
-          console.log(nama);
           setError(responseJson.error)
-
+        } else {
+          setError(null)
+          setNama(null)
+          setEmail(null)
+          setPassword(null)
+          setPasswordConfirmation(null)
+          setFoto(null)
+          history.push('/login')
         }
       })
       .catch(e => console.log(e));
@@ -75,29 +56,45 @@ const Login = () => {
 
 
   useEffect(() => {
-
+    const isLogin = () => localStorage.getItem('token') ? history.push('/') : null
+    isLogin()
   });
 
   return (
     <Row>
       <Col sm={5} className={classes.box}>
         <Form>
+          {error ?
+            <ul>
+              {
+                Object.keys(error).map(
+                  data => {
+                    return (
+                      error[data].map(
+                        (value, i) => {
+                          // Styling error disini
+                          return (<li>{value}</li>)
+                        })
+                    )
+                  }
+                )
+              }
+            </ul>
+            : null
+          }
           <Form.Group controlId="formBasicName">
             <Form.Label className={classes.label}>Nama</Form.Label>
             <Form.Control type="text" placeholder="Masukkan nama lengkap" autoComplete="off" required value={nama} onChange={(e) => setNama(e.target.value)} />
-            <p> { nama } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
             <Form.Label className={classes.label}>Email</Form.Label>
             <Form.Control type="email" placeholder="Masukkan email" autoComplete="off" required value={email} onChange={(e) => setEmail(e.target.value)} />
-            <p> { email } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label className={classes.label}>Password</Form.Label>
             <Form.Control type="password" placeholder="Masukkan password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-            <p> { password } </p>
           </Form.Group>
 
           <Form.Group controlId="formBasicPasswordConfirmation">
@@ -109,7 +106,6 @@ const Login = () => {
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
-            <p> { passwordConfirmation } </p>
           </Form.Group>
 
           <Form.Group>
@@ -118,7 +114,6 @@ const Login = () => {
             <Form.Label className={classes.label}>
               <Form.File id="exampleFormControlFile1" required accept=".png, .jpg, .jpeg" onChange={(e) => setFoto(e.target.files[0])} />
             </Form.Label>
-            <p> { foto } </p>
           </Form.Group>
           <Form.Text className="text-muted">
             *Privasi anda tidak akan disebarluaskan

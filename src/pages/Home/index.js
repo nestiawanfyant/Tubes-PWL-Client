@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,11 +13,27 @@ import { ViewCard } from "../index";
 
 const Home = () => {
   const classes = styles();
+  const history = useHistory();
+  const [kelas, setKelas] = useState([])
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+
+  useEffect(() => {
+    const isLogin = () => localStorage.getItem('token') ? null : history.replace('/login')
+    isLogin()
+
+    fetch('http://127.0.0.1:8000/kelas/list?' + 'id=' + user.id)
+      .then(response => response.json())
+      .then(responseJson => {
+        setKelas(responseJson)
+      })
+      .catch(e => console.log(e));
+  }, [kelas])
 
   return (
     <div className={classes.container}>
       <p className={classes.homeText}> Daftar Kelas </p>
       <div className={classes.flexCard}>
+<<<<<<< HEAD
         <CardKelas
           title="Pengembangan Web Lanjut"
           dosen="Fikri Halim Ch"
@@ -48,6 +64,24 @@ const Home = () => {
           gambar="https://picsum.photos/200/300"
           className={classes.cardStyle}
         />
+=======
+        {
+          kelas.length > 0 ?
+            kelas.map((value) => {
+              return <CardKelas
+                title={value.kelas.nama}
+                dosen={value.kelas.user.nama}
+                deskripsi={value.kelas.deskripsi}
+                gambar="https://picsum.photos/200/300"
+                link={value.kelas.slug}
+                className={classes.cardStyle}
+              />
+            }) :
+            // STYLE TIDAK ADA KELAS
+            <h2>takde kelas</h2>
+        }
+
+>>>>>>> b839f050c6325793cf098cac989fd5f640f5a1ef
       </div>
     </div>
   );

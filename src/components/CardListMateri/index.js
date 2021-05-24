@@ -3,7 +3,7 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Button, Form, Row, Col, Card,Popover } from "react-bootstrap";
+import { Image, Button, Form, Row, Col, Card, Popover } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 // assets
 import { Color } from "../../assets/color";
@@ -11,7 +11,7 @@ import "../../assets/css/font.css";
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from "react-icons/bi";
 
-const cardListMateri = () => {
+const cardListMateri = ({ nama, user, deskripsi, id, slug }) => {
   const styles = style();
 
   return (
@@ -24,7 +24,7 @@ const cardListMateri = () => {
                 <BiBookBookmark className={styles.iconCardTitle} />
                 <p className={styles.textCardTitle}>
                   {" "}
-                  Nestiawan posted a new material: Materi 3{" "}
+                  {user} posted a new material: {nama}{" "}
                 </p>
               </div>
             </Col>
@@ -45,23 +45,17 @@ const cardListMateri = () => {
                   </Popover>
                 }
               >
-              <BiDotsVerticalRounded className={styles.DotsVerticalRounded} />
+                <BiDotsVerticalRounded className={styles.DotsVerticalRounded} />
               </OverlayTrigger>
             </Col>
           </Row>
         </Card.Header>
       </BrowserRouter>
-      <Card.Body>
+      {deskripsi == 'null' ? null : <Card.Body>
         <Card.Text className={styles.textContentCard}>
-          Assalamu'alaikum... <br />
-          link perkulihaan hari ini: <br />
-          https://zoom.us/j/98593128191?pwdsd=Y0VJbm5PddU0xpVDBYaXdjcVJYMStZUT09
-          <br />
-          <br />
-          <br />
-          Terimakasih🙏
+          {deskripsi}
         </Card.Text>
-      </Card.Body>
+      </Card.Body>}
       <Card.Footer className={styles.footerCard}>
         <Row>
           <Col sm={1}>
@@ -79,7 +73,7 @@ const cardListMateri = () => {
                     <Form.Control
                       className={styles.inputComment}
                       type="text"
-                      placeholder="Enter email"
+                      placeholder="Tambah komentar"
                     />
                   </Form.Group>
                 </Col>

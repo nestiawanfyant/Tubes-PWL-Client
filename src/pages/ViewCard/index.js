@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+} from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,26 +22,29 @@ import {
 // component
 import { CardListMateri } from "../../components";
 //pages
-import { Profile, ViewMateri, ViewTugas, DetailTugas } from '../../pages'
+import {
+  Profile,
+  ViewMateri,
+  ViewTugas,
+  DetailTugas,
+} from "../../pages";
 
 const ViewCard = () => {
   const styles = style();
-  const { name } = useParams()
-  const [kelas, setKelas] = useState(
-    {
-      nama: '',
-      deskripsi: '',
-    }
-  )
+  const { name } = useParams();
+  const [kelas, setKelas] = useState({
+    nama: "",
+    deskripsi: "",
+  });
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/kelas/show?' + 'slug=' + name)
-      .then(response => response.json())
-      .then(responseJson => {
-        setKelas(responseJson)
+    fetch("http://127.0.0.1:8000/kelas/show?" + "slug=" + name)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setKelas(responseJson);
       })
-      .catch(e => console.log(e));
-  })
+      .catch((e) => console.log(e));
+  });
 
   return (
     <div className={styles.ViewContainer}>
@@ -47,9 +55,7 @@ const ViewCard = () => {
           alt="Card image"
         />
         <Card.ImgOverlay className={styles.imgOVerly}>
-          <Card.Title className={styles.textTitle}>
-            {kelas.nama}
-          </Card.Title>
+          <Card.Title className={styles.textTitle}>{kelas.nama}</Card.Title>
           <Card.Text className={styles.textContent}>
             {kelas.deskripsi}
           </Card.Text>
@@ -85,7 +91,6 @@ const ViewCard = () => {
             <Route path="/kelas/:name/tugas/:slug">
               <DetailTugas />
             </Route>
-            <Route path="/kelas/:name/forum" component={Profile} />
           </Switch>
           {/* <Nav variant="tabs" defaultActiveKey="/home">
                     <Nav.Item>

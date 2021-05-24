@@ -42,16 +42,8 @@ const NavKelas = () => {
         </Link>
       </li>
       <li className={classes.liNavigationClass}>
-        <Link
-          to={"forum"}
-          className={classes.linkNavigationTextClass}
-        >
-          Forum
-        </Link>
-      </li>
-      <li className={classes.liNavigationClass}>
         <Link to={"peserta"} className={classes.linkNavigationTextClass}>
-          People
+          Peserta
         </Link>
       </li>
     </ul>

@@ -25,6 +25,6 @@ export {
   Login,
   Daftar,
   KelasTerbuka,
-  DetailTugas
+  DetailTugas,
 };
 

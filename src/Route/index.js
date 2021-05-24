@@ -21,7 +21,6 @@ import {
   ViewTugas,
   KelasTerbuka,
   KelasTambah,
-  ViewTugas,
   DetailTugas
 } from "../pages";
 

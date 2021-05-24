@@ -38,6 +38,8 @@ const Home = () => {
             kelas.map((value) => {
               return <CardKelas
                 key={value.id}
+                kelasUser={value.kelas.user_id}
+                user={user.id}
                 title={value.kelas.nama}
                 dosen={value.kelas.user.nama}
                 deskripsi={value.kelas.deskripsi}

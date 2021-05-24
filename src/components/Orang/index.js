@@ -10,13 +10,93 @@ import "../../assets/css/font.css";
 //icon
 import { FiXSquare, FiMoreVertical } from "react-icons/fi";
 
-const Orang = ({ nama, gambar, type }) => {
+const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
   // State
   const [show, setShow] = useState(false);
+  const [showRole, setShowRole] = useState(false);
 
   // function
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const btnUpdateGuru = (e) => {
+    e.preventDefault()
+    fetch('http://127.0.0.1:8000/kelas/role/update', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: roleId,
+        role: '1'
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        setShowRole(false)
+      })
+      .catch(e => console.log(e));
+  }
+
+  const btnUpdateAsisten = (e) => {
+    e.preventDefault()
+    fetch('http://127.0.0.1:8000/kelas/role/update', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: roleId,
+        role: '2'
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        setShowRole(false)
+      })
+      .catch(e => console.log(e));
+  }
+
+  const btnUpdateSiswa = (e) => {
+    e.preventDefault()
+    fetch('http://127.0.0.1:8000/kelas/role/update', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: roleId,
+        role: '3'
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        setShowRole(false)
+      })
+      .catch(e => console.log(e));
+  }
+
+  const btnKeluar = (e) => {
+    e.preventDefault()
+    fetch('http://127.0.0.1:8000/kelas/keluarkan', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: roleId
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        setShow(false)
+      })
+      .catch(e => console.log(e));
+  }
 
   const classes = styles();
   return (
@@ -25,18 +105,19 @@ const Orang = ({ nama, gambar, type }) => {
       <div className={classes.textBox}>
         <h6 className={classes.text}>{nama}</h6>
       </div>
-      <FiXSquare className={classes.iconRed} onClick={handleShow} />
+      { role == '1' && owner != user ? <FiXSquare className={classes.iconRed} onClick={handleShow} /> : null}
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
           {/* <Form> */}
-          <h3>
+          <h5>
             Apakah anda yakin ingin mengeluarkan{" "}
-            <b className={classes.bold}>{nama}</b>
-          </h3>
+            <b className={classes.bold}>{nama}</b> ?
+          </h5>
           {/* </Form> */}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={handleClose}>
+          <Button variant="light" onClick={btnKeluar}>
             Ya, Keluarkan
           </Button>
           <Button variant="primary" onClick={handleClose}>
@@ -44,47 +125,30 @@ const Orang = ({ nama, gambar, type }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* 
-      <OverlayTrigger
-        trigger="focus"
-        key="left"
-        placement="left"
-        overlay={
-          //   <Popover id={`popover-positioned-${placement}`}>
-          <Popover id="popover-positioned-left">
-            <Popover.Content>
-              <Link className={classes.pop}>Jadikan Guru</Link>
-            </Popover.Content>
-            <Popover.Content>
-              <Link className={classes.pop}>Jadikan Asisten</Link>
-            </Popover.Content>
-          </Popover>
-        }
-      >
-        <Button>
-        </Button>
-      </OverlayTrigger> */}
-      <OverlayTrigger
-        trigger="focus"
-        key="left"
-        placement="left"
-        overlay={
-          //   <Popover id={`popover-positioned-${placement}`}>
-          <Popover id="popover-positioned-left">
-            <Popover.Content>
-              <Link className={classes.pop}>Jadikan Guru</Link>
-            </Popover.Content>
-            <Popover.Content>
-              <Link className={classes.pop}>Jadikan Asisten</Link>
-            </Popover.Content>
-          </Popover>
-        }
-      >
-        <Button className={classes.addClassBTN}>
-          {" "}
-          <FiMoreVertical className={classes.icon} />
-        </Button>
-      </OverlayTrigger>
+
+      { role == '1' && owner != user ?
+        <OverlayTrigger
+          trigger="focus"
+          key="left"
+          placement="left"
+          overlay={
+            //   <Popover id={`popover-positioned-${placement}`}>
+            <Popover id="popover-positioned-left">
+              <Popover.Content>
+                <Link className={classes.pop}>Jadikan Guru</Link>
+              </Popover.Content>
+              <Popover.Content>
+                <Link className={classes.pop}>Jadikan Asisten</Link>
+              </Popover.Content>
+            </Popover>
+          }
+        >
+          <Button className={classes.addClassBTN}>
+            {" "}
+            <FiMoreVertical className={classes.icon} />
+          </Button>
+        </OverlayTrigger> : null
+      }
     </div>
   );
 };

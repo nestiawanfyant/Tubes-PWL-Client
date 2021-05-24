@@ -36,9 +36,9 @@ const Login = () => {
         })
           .then(response => response.json())
           .then(responseJson => {
-            console.log(responseJson)
+            console.log(responseJson.user)
             if (responseJson.user != null) {
-              localStorage.setItem('id', responseJson.user.id)
+              localStorage.setItem('user', JSON.stringify(responseJson.user))
               localStorage.setItem('token', responseJson.user.remember_token)
               console.log(responseJson.user.remember_token)
               setError(null)

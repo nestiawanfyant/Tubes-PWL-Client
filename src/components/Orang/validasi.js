@@ -11,7 +11,7 @@ import "../../assets/css/font.css";
 import { BiUserCheck, BiUserX } from "react-icons/bi";
 
 
-const ValidasiOrang = ({ nama, gambar, motivasi }) => {
+const ValidasiOrang = ({ nama, gambar, motivasi, id }) => {
   // State
   const [showTolak, setShowTolak] = useState(false);
   const [showTerima, setShowTerima] = useState(false);

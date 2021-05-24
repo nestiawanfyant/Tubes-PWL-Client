@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
 
 //bootstrap
-import { Image, Popover, Button } from "react-bootstrap";
+import { Image, Popover, Button, Modal, Form, Col,InputGroup } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 // assets
@@ -15,8 +15,20 @@ import "../../assets/css/font.css";
 import { BiMessageAdd, BiMessageDots, BiSmile } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 
-const CardKelas = ({ title, dosen, gambar, deskripsi, link, user, kelasUser }) => {
+const CardKelas = ({ title, dosen, gambar, kode, link, user, kelasUser, deskripsi }) => {
   const classes = styles();
+  // State
+  const [show, setShow] = useState(false);
+  const [showHapus, setShowHapus] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
+  // function
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleCloseHapus = () => setShowHapus(false);
+  const handleShowHapus = () => setShowHapus(true);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardHeader}>
@@ -26,8 +38,8 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link, user, kelasUser }) =
             className={classes.textDecorationNone}
           >
             <div className={classes.titleHeader}>{title}</div>
-            <div className={classes.time}>{deskripsi}</div>
             <div className={classes.textHeader}>{dosen}</div>
+            <div className={classes.time}>Kode : {kode}</div>
           </Link>
         </div>
         <div className={classes.box2}>
@@ -38,19 +50,20 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link, user, kelasUser }) =
             overlay={
               //   <Popover id={`popover-positioned-${placement}`}>
               <Popover id="popover-positioned-left">
-                {
-                  user === kelasUser ?
-                    <>
-                      <Popover.Content>
-                        <Link className={classes.pop}>Hapus Kelas</Link>
-                      </Popover.Content>
-                      <Popover.Content>
-                        <Link className={classes.pop}>Edit Kelas</Link>
-                      </Popover.Content>
-                    </> : null
-                }
+                {user === kelasUser ? (
+                  <>
+                    <Popover.Content>
+                      <Link className={classes.pop} onClick={handleShowHapus}>Hapus Kelas</Link>
+                    </Popover.Content>
+                    <Popover.Content>
+                      <Link className={classes.pop} onClick={handleShowEdit}>Edit Kelas</Link>
+                    </Popover.Content>
+                  </>
+                ) : null}
                 <Popover.Content>
-                  <Link className={classes.pop}>Keluar Kelas</Link>
+                  <Link className={classes.pop} onClick={handleShow}>
+                    Keluar Kelas
+                  </Link>
                 </Popover.Content>
               </Popover>
             }
@@ -60,6 +73,92 @@ const CardKelas = ({ title, dosen, gambar, deskripsi, link, user, kelasUser }) =
               <FiSettings className={classes.iconHeader} />
             </Button>
           </OverlayTrigger>
+          {/* modal keluar kelas */}
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Body>
+              {/* <Form> */}
+              <h3>
+                Apakah anda yakin ingin keluar dari{" "}
+                <b className={classes.bold}>{title}</b>
+              </h3>
+              {/* </Form> */}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="light" >
+                Ya, Keluar
+              </Button>
+              <Button className={classes.button} onClick={handleClose}>
+                Batal
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          {/* modal hapus kelas */}
+          <Modal show={showHapus} onHide={handleCloseHapus}>
+            <Modal.Body>
+              {/* <Form> */}
+              <h3>
+                Menghapus Kelas akan menghilangkan semua data didalam kelas, apakah anda yakin ingin menghapus kelas 
+                {" "}
+                <b className={classes.bold}>{title}</b>
+              </h3>
+              {/* </Form> */}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="light" >
+                Ya, Hapus
+              </Button>
+              <Button className={classes.button} onClick={handleCloseHapus}>
+                Batal
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          {/* modal edit kelas */}
+          <Modal show={showEdit} onHide={handleCloseEdit}>
+            <Modal.Body>
+              <Form.Row>
+                <Form.Group as={Col} md="12" controlId="validationCustom01">
+                  <Form.Label className={classes.text}>Nama</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Nama"
+                    // onChange={(e) => setNama(e.target.value)}
+                    value={title}
+                  />
+                  <Form.Control.Feedback>Sudah Terisi</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Wajib mencamtumkan nama kelas
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustomUsername"
+                >
+                  <Form.Label className={classes.text}>Deskripsi</Form.Label>
+                  <InputGroup hasValidation>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      placeholder="Waktu pembelajaran"
+                      // onChange={(e) => setDeskripsi(e.target.value)}
+                      value={deskripsi}
+                    />
+                    <Form.Control.Feedback>(Opsional)</Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+              </Form.Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button className={classes.button}>
+                Edit
+              </Button>
+              <Button variant="light" onClick={handleCloseEdit}>
+                Batal
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
 
           {/* <img src={Mola} alt="kucing"> */}
           <Image src={gambar} alt="kucing" className={classes.imageHeader} />
@@ -116,6 +215,7 @@ const styles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     height: "auto",
+    flex: 3,
     marginRight: 10,
   },
   box2: {
@@ -132,12 +232,13 @@ const styles = createUseStyles({
     fontFamily: "DM Sans",
   },
   textHeader: {
-    fontSize: 14,
+    fontSize: 15,
     color: Color.white,
     fontFamily: "DM Sans",
   },
   time: {
-    fontSize: 14,
+    marginTop: 10,
+    fontSize: 12,
     fontFamily: "DM Sans",
     color: Color.white,
   },
@@ -229,5 +330,17 @@ const styles = createUseStyles({
       border: "none",
       boxShadow: "none",
     },
+  },
+  bold: {
+    color: Color.primary,
+  },
+  text: {
+    color: Color.primary,
+    fontWeight: "bold",
+  },
+  button: {
+    margin: 0,
+    backgroundColor: Color.primary,
+    fontWeight: "bold",
   },
 });

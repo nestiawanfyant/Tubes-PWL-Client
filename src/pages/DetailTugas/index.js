@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,80 +12,132 @@ import { BiSend } from "react-icons/bi";
 
 
 const DetalTugas = () => {
-
     const styles = style();
+    const { name, id } = useParams()
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+    const [komentar, setKomentar] = useState('')
+    const [detail, setDetail] = useState(
+        {
+            tugas:
+            {
+                nama: '',
+                deadline: '',
+                slug: '',
+                deskripsi: '',
+                user: {
+                    nama: '',
+                }
+            },
+            komentar: [],
+            submission: {},
+            deadline: '',
+            created_at: ''
+        }
+    )
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/tugas/show?slug=' + id)
+            .then(response => response.json())
+            .then(responseJson => {
+                setDetail(responseJson)
+            })
+            .catch(e => console.log(e));
+    }, [detail])
+
+    const btnKomentar = (e) => {
+        e.preventDefault()
+        fetch('http://127.0.0.1:8000/tugas/komentar/store', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: user.id,
+                slug: detail.tugas.slug,
+                komentar: komentar
+            })
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (responseJson) {
+                    setKomentar('')
+                }
+            })
+            .catch(e => console.log(e));
+    }
 
     return (
         <div className={styles.container}>
             <Container>
                 <Row>
                     <Col sm={1}>
-                        <div className={ styles.iconBookBookmark }>
-                            <BiBookBookmark className={ styles.icons } />
+                        <div className={styles.iconBookBookmark}>
+                            <BiBookBookmark className={styles.icons} />
                         </div>
                     </Col>
                     <Col sm={8}>
-                        <h2> UAS SOCIO, Senin 24 Mei 2021 </h2>
-                        <p> mohamad idris • 7:33 AM </p>
-                        <div className={ styles.pointAndTime }>
+                        <h2> {detail.tugas.nama ?? ''} </h2>
+                        <p> {detail.tugas.user.nama} • {detail.created_at} </p>
+                        <div className={styles.pointAndTime}>
                             <p> 100 points </p>
-                            <p> Due 9:35 AM </p> 
+                            <p> Due {detail.deadline ?? ''} </p>
                         </div>
 
                         <hr />
 
                         <div className={styles.contentDetail}>
-                            ATURAN UJIAN UAS SOCIO
-                            Ujian bersifat individu dan closed book, internet maupun gadget
-                            Waktu ujian: Senin 24 Mei 2021 Pukul 07.30 WIB s/d Pukul 09.10 WIB
-                            Setiap mahasiswa wajib mengikuti aturan ujian yang telah ditentukan
-                            Apabila ada indikasi plagiarisme antara 2 orang atau lebih, maka keseluruhan mahasiswa yang terdeteksi plagiarisme akan mendapat nilai UAS = 0
-                            Keterlambatan submit Google Form dikenai pengurangan Poin (dikurangi 5 poin per menit keterlambatan). 
-                            Kesalahan penulisan Nama dan NIM mengakibatkan pekerjaan anda tidak di nilai (Sesuaikan penulisan nama dan NIM anda dengan yang tertera di siakad.itera.ac.id)
-                            Peserta wajib hadir di Zoom 10 menit sebelum pelaksanaan ujian (link di berikan 15 Menit sebelum ujian berlangsung).
-                            Peserta wajib join ke breakout room sesuai dengan kelas dan pengampu masing-masing
-                            Format penamaan akun Zoom pada saat ujian: Kelas_NamaDepan_NIM
-                            Peserta wajib menyalakan kamera dan mikrofon di laptop atau gadget, serta wajib menggunakan baju berkerah.
-                            Peserta yang akan meninggalkan lokasi ujian pada saat ujian berlangsung harus meminta izin terlebih dahulu
-                            Peserta yang telah selesai mengerjakan UAS perlu melapor via personal chat di Zoom kepada host
+                            {detail.tugas.deskripsi ?? ''}
                         </div>
 
                         <hr />
 
                         <div className={styles.viewComment}>
-                        <Row>
-                            <Col sm={1}>
-                            <Image
-                                src="https://picsum.photos/200/300"
-                                className={styles.imagesProfile}
-                                roundedCircle
-                                />
-                            </Col>
-                            <Col sm={11}>
-                                <p> Nestiawan ferdiyanto </p>
-                                <p> kan meninggalkan lokasi ujian pada saat ujian berlangsung harus meminta izin terlebih dahulu
-                            Peserta yang telah selesai mengerjakan UAS perlu melapor via personal chat di Zoom kepada host </p>
-                            </Col>
-                        </Row>
+                            <Row>
+                                {
+                                    detail.komentar.length > 0 ? detail.komentar.map(data => {
+                                        return (
+                                            <>
+
+                                                <Col sm={1}>
+                                                    <Image
+                                                        src="https://picsum.photos/200/300"
+                                                        className={styles.imagesProfile}
+                                                        roundedCircle
+                                                    />
+                                                </Col>
+                                                <Col sm={11}>
+                                                    <p> {data.user.nama} </p>
+                                                    <p> {data.komentar} </p>
+                                                </Col></>
+                                        )
+                                    })
+                                        : null
+                                }
+                            </Row>
                         </div>
 
                         <Form className={styles.formInsertCode}>
                             <Row>
                                 <Col sm={11}>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Control
-                                    className={styles.inputComment}
-                                    type="text"
-                                    placeholder="Tambah komentar"
-                                    />
-                                </Form.Group>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Control
+                                            className={styles.inputComment}
+                                            type="text"
+                                            placeholder="Tambah komentar"
+                                            required
+                                            value={komentar}
+                                            onChange={e => setKomentar(e.target.value)}
+                                        />
+                                    </Form.Group>
                                 </Col>
                                 <Col sm={1}>
-                                <Button type="submit" className={styles.buttonSendComment}>
-                                    <BiSend className={styles.iconBtnSendComment} />
-                                </Button>
+                                    <Button type="submit" className={styles.buttonSendComment} onClick={btnKomentar}>
+                                        <BiSend className={styles.iconBtnSendComment} />
+                                    </Button>
                                 </Col>
                             </Row>
+
                         </Form>
                     </Col>
                     <Col sm={3}>
@@ -96,9 +148,9 @@ const DetalTugas = () => {
                                     <Form className={styles.formInsertCode}>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Control
-                                            className={styles.inputComment}
-                                            type="file"
-                                            placeholder="Submission Tugas"
+                                                className={styles.inputComment}
+                                                type="file"
+                                                placeholder="Submission Tugas"
                                             />
                                         </Form.Group>
                                         <Button type="submit" className={styles.buttonSendComment}>
@@ -129,7 +181,7 @@ const style = createUseStyles({
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        textCenter: 'center',    
+        textCenter: 'center',
         alignItems: 'center',
         borderRadius: 100,
     },

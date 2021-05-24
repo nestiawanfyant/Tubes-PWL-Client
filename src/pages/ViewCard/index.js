@@ -17,7 +17,7 @@ import {
 // component
 import { CardListMateri } from "../../components";
 //pages
-import { Profile, ViewMateri, ViewTugas } from '../../pages'
+import { Profile, ViewMateri, ViewTugas, DetailTugas } from '../../pages'
 
 const ViewCard = () => {
   const styles = style();
@@ -81,6 +81,9 @@ const ViewCard = () => {
             </Route>
             <Route path="/kelas/:name/tugas">
               <ViewTugas />
+            </Route>
+            <Route path="/kelas/:name/tugas/:slug">
+              <DetailTugas />
             </Route>
             <Route path="/kelas/:name/forum" component={Profile} />
           </Switch>

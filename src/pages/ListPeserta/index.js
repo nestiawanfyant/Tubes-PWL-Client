@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 //components
 import { TextHeader, Orang, ValidasiOrang } from "../../components";
@@ -6,33 +6,66 @@ import { TextHeader, Orang, ValidasiOrang } from "../../components";
 import { Color } from "../../assets/color";
 //icon
 import { GiCoffeeCup, GiRobe } from "react-icons/gi";
+import { useParams } from 'react-router-dom'
 
 function ListPeserta() {
   const styles = style();
+  const { name } = useParams()
+  const [guru, setGuru] = useState([])
+  const [asisten, setAsisten] = useState([])
+  const [siswa, setSiswa] = useState([])
+  const [permintaan, setPermintaan] = useState([])
+  const [tipe, setTipe] = useState('1')
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/kelas/tipe?slug=' + name)
+      .then(response => response.json())
+      .then(responseJson => {
+        setTipe(responseJson)
+      })
+      .catch(e => console.log(e))
+
+    fetch('http://127.0.0.1:8000/kelas/peserta?slug=' + name)
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson)
+        setGuru(responseJson.guru)
+        setAsisten(responseJson.asisten)
+        setSiswa(responseJson.murid)
+        setPermintaan(responseJson.pengajuan)
+      })
+      .catch(e => console.log(e));
+  }, [guru, asisten, siswa])
 
   return (
     <div className={styles.container}>
-      <TextHeader title="Permintaan Bergabung" />
-      <ValidasiOrang
-        nama="Fikri Halim Ch"
-        gambar="https://picsum.photos/200/300"
-        motivasi="cita citaku bukan cita citamu"
-      />
-      <ValidasiOrang
-        nama="Bukan Fikri"
-        gambar="https://picsum.photos/200/300"
-        motivasi="cita citaku bukan cita citamu"
-      />
-      <ValidasiOrang
-        nama="Pura pura fikri"
-        gambar="https://picsum.photos/200/300"
-        motivasi="cita citaku bukan cita citamu"
-      />
+      {
+        tipe == '1' ? null :
+          <>
+            <TextHeader title="Permintaan Bergabung" />
+            {
+              permintaan.length > 0 ?
+                permintaan.map(data => {
+                  return (
+                    <ValidasiOrang
+                      key={data.id}
+                      id={data.id}
+                      nama={data.user.nama}
+                      gambar="https://picsum.photos/200/300"
+                      motivasi={data.essay}
+                    />)
+                })
+                : null
+            }
+          </>
+      }
 
       <TextHeader title="Guru " />
-      <Orang nama="Fikri Halim Ch" gambar="https://picsum.photos/200/300" />
-      <Orang nama="Bukan Fikri" gambar="https://picsum.photos/200/300" />
-      <Orang nama="Pura pura fikri" gambar="https://picsum.photos/200/300" />
+      {
+        guru.length > 0 ? guru.map(data => {
+          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+        }) : null
+      }
 
       <TextHeader title="Asisten" />
       {/* untuk asisten kosong */}
@@ -42,9 +75,11 @@ function ListPeserta() {
           Tambah asisten untuk meringankan pundakmu
         </text>
       </div>
-      <Orang nama="Fikri Halim Ch" gambar="https://picsum.photos/200/300" />
-      <Orang nama="Bukan Fikri" gambar="https://picsum.photos/200/300" />
-      <Orang nama="Pura pura fikri" gambar="https://picsum.photos/200/300" />
+      {
+        asisten.length > 0 ? asisten.map(data => {
+          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+        }) : null
+      }
 
       <TextHeader title="Siswa" />
       {/* untuk siswa kosong */}
@@ -54,13 +89,11 @@ function ListPeserta() {
           Sebaik baiknya ilmu adalah ilmu yang disebarluaskan
         </text>
       </div>
-      <Orang
-        nama="Fikri Halim Ch"
-        gambar="https://picsum.photos/200/300"
-        type="validasi"
-      />
-      <Orang nama="Bukan Fikri" gambar="https://picsum.photos/200/300" />
-      <Orang nama="Pura pura fikri" gambar="https://picsum.photos/200/300" />
+      {
+        siswa.length > 0 ? siswa.map(data => {
+          return <Orang key={data.id} nama={data.user.nama} gambar="https://picsum.photos/200/300" />
+        }) : null
+      }
     </div>
   );
 }

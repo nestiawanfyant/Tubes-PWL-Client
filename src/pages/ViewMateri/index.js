@@ -47,7 +47,7 @@ const ViewMateri = () => {
       <br />
       {
         materi.length > 0 ? materi.map(data => {
-          return (<><CardListMateri key={data.id} nama={data.nama} user={data.user.nama} deskripsi={data.deskripsi} id={data.id} /> <br /></>)
+          return (<><CardListMateri key={data.id} nama={data.nama} user={data.user.nama} deskripsi={data.deskripsi} id={data.id} slug={data.slug} /> <br /></>)
         }) :
           <h3>Belum ada materi</h3>
       }

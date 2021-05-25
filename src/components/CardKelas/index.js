@@ -285,13 +285,14 @@ export default CardKelas;
 
 const styles = createUseStyles({
   container: {
-    width: "94%",
+    width: "50%",
     margin: "0 auto",
   },
   cardContainer: {
     overflow: "hidden",
     flexDirection: "column",
-    maxWidth: 296,
+    // maxWidth: 350,
+    width: 290,
     borderRadius: 10,
     marginLeft: 10,
     marginRight: 10,

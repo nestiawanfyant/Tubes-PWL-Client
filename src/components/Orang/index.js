@@ -10,7 +10,7 @@ import "../../assets/css/font.css";
 //icon
 import { FiXSquare, FiMoreVertical } from "react-icons/fi";
 
-const Orang = ({ nama, gambar, user, role, owner, roleId, roleUser }) => {
+const Orang = ({ nama, gambar, user, role, owner, roleId }) => {
   // State
   const [show, setShow] = useState(false);
   const [showSiswa, setShowSiswa] = useState(false);
@@ -146,83 +146,25 @@ const Orang = ({ nama, gambar, user, role, owner, roleId, roleUser }) => {
           placement="left"
           overlay={
             //   <Popover id={`popover-positioned-${placement}`}>
+
             <Popover id="popover-positioned-left">
-              {roleUser == '1' ? null :
-                <>
-                  <Popover.Content>
-                    <Link className={classes.pop} onClick={handleShowGuru}>Jadikan Guru</Link>
-                  </Popover.Content>
-                  <Modal show={showGuru} onHide={handleCloseGuru}>
-                    <Modal.Body>
-                      Apakah anda yakin ingin mengangkat{" "}
-                      <b className={classes.bold}>{nama}</b>
-                      {" "}menjadi Guru ?
-                </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="light">
-                        Ya, Jadikan Guru
-                  </Button>
-                      <Button className={classes.button} onClick={handleCloseGuru}>
-                        Batal
-                  </Button>
-                    </Modal.Footer>
-                  </Modal>
-                </>
-              }
+              <Popover.Content>
+                <Link className={classes.pop} onClick={handleShowGuru}>
+                  Jadikan Guru
+                </Link>
+              </Popover.Content>
 
-              {roleUser == '2' ? null :
-                <>
-                  <Popover.Content>
-                    <Link className={classes.pop} onClick={handleShowAsisten}>Jadikan Asisten</Link>
-                  </Popover.Content>
-                  <Modal show={showAsisten} onHide={handleCloseAsisten}>
-                    <Modal.Body>
-                      {/* <Form> */}
-                      <h5>
-                        Apakah anda yakin ingin mengangkat{" "}
-                        <b className={classes.bold}>{nama}</b>
-                        {" "}menjadi asisten ?
-                  </h5>
-                      {/* </Form> */}
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="light">
-                        Ya, Jadikan Asisten
-                  </Button>
-                      <Button className={classes.button} onClick={handleCloseAsisten}>
-                        Batal
-                  </Button>
-                    </Modal.Footer>
-                  </Modal>
-                </>
-              }
+              <Popover.Content>
+                <Link className={classes.pop} onClick={handleShowAsisten}>
+                  Jadikan Asisten
+                </Link>
+              </Popover.Content>
 
-              {roleUser == '3' ? null :
-                <>
-                  <Popover.Content>
-                    <Link className={classes.pop} onClick={handleShowSiswa}>Jadikan Siswa</Link>
-                  </Popover.Content>
-                  <Modal show={showSiswa} onHide={handleCloseSiswa}>
-                    <Modal.Body>
-                      {/* <Form> */}
-                      <h5>
-                        Apakah anda yakin ingin menurunkan{" "}
-                        <b className={classes.bold}>{nama}</b>
-                        {" "}menjadi siswa ?
-                  </h5>
-                      {/* </Form> */}
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="light">
-                        Ya, Jadikan siswa
-                  </Button>
-                      <Button className={classes.button} onClick={handleCloseSiswa}>
-                        Batal
-                  </Button>
-                    </Modal.Footer>
-                  </Modal>
-                </>
-              }
+              <Popover.Content>
+                <Link className={classes.pop} onClick={handleShowSiswa}>
+                  Jadikan Siswa
+                </Link>
+              </Popover.Content>
             </Popover>
           }
         >
@@ -232,6 +174,48 @@ const Orang = ({ nama, gambar, user, role, owner, roleId, roleUser }) => {
           </Button>
         </OverlayTrigger>
       ) : null}
+      <Modal show={showGuru} onHide={handleCloseGuru}>
+        <Modal.Body>
+          Apakah anda yakin ingin mengangkat{" "}
+          <b className={classes.bold}>{nama}</b> menjadi Guru ?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light">Ya, Jadikan Guru</Button>
+          <Button className={classes.button} onClick={handleCloseGuru}>
+            Batal
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* modal siswa */}
+      <Modal show={showSiswa} onHide={handleCloseSiswa}>
+        <Modal.Body>
+          <h5>
+            Apakah anda yakin ingin menurunkan{" "}
+            <b className={classes.bold}>{nama}</b> menjadi siswa ?
+          </h5>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light">Ya, Jadikan siswa</Button>
+          <Button className={classes.button} onClick={handleCloseSiswa}>
+            Batal
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* modal asisten */}
+      <Modal show={showAsisten} onHide={handleCloseAsisten}>
+        <Modal.Body>
+          <h5>
+            Apakah anda yakin ingin mengangkat{" "}
+            <b className={classes.bold}>{nama}</b> menjadi asisten ?
+          </h5>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light">Ya, Jadikan Asisten</Button>
+          <Button className={classes.button} onClick={handleCloseAsisten}>
+            Batal
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

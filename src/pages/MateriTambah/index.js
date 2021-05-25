@@ -7,7 +7,7 @@ import { createUseStyles } from "react-jss";
 //assets
 import { Color } from "../../assets/color";
 
-const MateriTambah = ({ slug }) => {
+const MateriTambah = ({ slug, click }) => {
   const classes = styles();
   const [validated, setValidated] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
@@ -114,7 +114,7 @@ const MateriTambah = ({ slug }) => {
             </Form.Label>
           </Form.Group>
         </Form.Row>
-        <Button type="submit" className={classes.button}>
+        <Button type="submit" className={classes.button} onClick={click}>
           Submit
         </Button>
       </Form>

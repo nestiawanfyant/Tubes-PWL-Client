@@ -50,12 +50,12 @@ const ViewMateri = () => {
           <Modal.Title>Tambah Materi</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <MateriTambah slug={name} />
+          <MateriTambah slug={name} click={handleClose} />
         </Modal.Body>
       </Modal>
       <br />
       {materi.length > 0 ? (
-        materi.map((data) => {
+        materi.reverse().map((data) => {
           return (
             <>
               <CardListMateri
@@ -63,9 +63,10 @@ const ViewMateri = () => {
                 nama={data.nama}
                 user={data.user.nama}
                 deskripsi={data.deskripsi}
+                file={data.file}
                 id={data.id}
                 slug={data.slug}
-              />{" "}
+              />
               <br />
             </>
           );

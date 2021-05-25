@@ -72,7 +72,7 @@ function ListPeserta() {
       <TextHeader title="Guru " />
       {
         guru.length > 0 ? guru.map(data => {
-          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} owner={data.id} />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} owner={data.id} roleUser={data.role} />
         }) : null
       }
 
@@ -89,7 +89,7 @@ function ListPeserta() {
 
       {
         asisten.length > 0 ? asisten.map(data => {
-          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} roleUser={data.role} />
         }) : null
       }
 
@@ -106,7 +106,7 @@ function ListPeserta() {
 
       {
         siswa.length > 0 ? siswa.map(data => {
-          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} />
+          return <Orang key={data.id} roleId={data.id} nama={data.user.nama} user={user.id} role={role} gambar={data.user.foto} roleUser={data.role} />
         }) : null
       }
     </div>

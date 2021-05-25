@@ -24,6 +24,7 @@ const DetalTugas = () => {
                 deadline: '',
                 slug: '',
                 deskripsi: '',
+                file: '',
                 user: {
                     nama: '',
                 }
@@ -87,6 +88,7 @@ const DetalTugas = () => {
                         <hr />
 
                         <div className={styles.contentDetail}>
+                            {detail.tugas.file != '' ? <a href={detail.tugas.file}>Download file</a> : null}
                             {detail.tugas.deskripsi ?? ''}
                         </div>
 

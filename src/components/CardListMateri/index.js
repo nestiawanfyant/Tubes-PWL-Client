@@ -11,7 +11,7 @@ import "../../assets/css/font.css";
 // icon
 import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from "react-icons/bi";
 
-const cardListMateri = ({ nama, user, deskripsi, id, slug }) => {
+const cardListMateri = ({ nama, user, deskripsi, id, slug, file }) => {
   const styles = style();
 
   return (
@@ -54,6 +54,9 @@ const cardListMateri = ({ nama, user, deskripsi, id, slug }) => {
       {deskripsi == 'null' ? null : <Card.Body>
         <Card.Text className={styles.textContentCard}>
           {deskripsi}
+        </Card.Text>
+        <Card.Text className={styles.textContentCard}>
+          <a href={file}>Download Materi</a>
         </Card.Text>
       </Card.Body>}
       <Card.Footer className={styles.footerCard}>

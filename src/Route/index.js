@@ -84,7 +84,7 @@ const NavBar = () => {
       <div className={classes.navbar}>
         <div className={classes.titleNavbar}>
           <Link to={"/"} className={classes.textAStyle}>
-            <h2 className={classes.titleNavbarText}> ClassRoom </h2>
+            <h2 className={classes.titleNavbarText}> Schoolify </h2>
           </Link>
         </div>
 

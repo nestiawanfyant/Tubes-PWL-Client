@@ -182,6 +182,14 @@ const NavBar = () => {
               overlay={
                 <Popover id="popover-positioned-left">
                   <Popover.Content>
+                  <Link
+                      to={"/profile"}
+                      onClick={() => localStorage.clear()}
+                      className={classes.pop}
+                    >
+                      Profile
+                    </Link>
+                    <br />
                     <Link
                       to={"/login"}
                       onClick={() => localStorage.clear()}
@@ -195,7 +203,8 @@ const NavBar = () => {
             >
               <Button className={classes.addClassBTN}>
                 <Image
-                  src={user.foto}
+                  // src={ (user.foto == null ? null : user.foto) }
+                  src=""
                   className={classes.imagesProfile}
                   roundedCircle
                 />

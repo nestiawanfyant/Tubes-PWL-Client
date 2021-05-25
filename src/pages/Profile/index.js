@@ -42,6 +42,20 @@ const Profile = () => {
           </Card.Text>
         </Card.ImgOverlay>
       </Card>
+      <Image
+          src="https://picsum.photos/200/300"
+          className={styles.imagesProfile}
+          roundedCircle
+        />
+
+    <br />
+    <br />
+
+    
+    <div className={styles.deskripsi}>
+
+    </div>
+
     </div>
   );
 };
@@ -56,6 +70,9 @@ const style = createUseStyles({
   imagesProfile:{
     width: 120,
     height: 120,
+    position: 'relative',
+    top: "-90px",
+    left: "3x0px",
   },
   text: {
     color: Color.primary,

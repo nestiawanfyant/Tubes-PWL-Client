@@ -3,20 +3,39 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 // bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Button, Form, Row, Col, Card, Popover } from "react-bootstrap";
+import {
+  Image,
+  Button,
+  Form,
+  Row,
+  Col,
+  Card,
+  Popover,
+  Modal,
+} from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 // assets
 import { Color } from "../../assets/color";
 import "../../assets/css/font.css";
 // icon
-import { BiBookBookmark, BiDotsVerticalRounded, BiSend } from "react-icons/bi";
+import { BiBookBookmark, BiDotsVerticalRounded, BiSend , BiDownload} from "react-icons/bi";
+import { BsChatQuote } from "react-icons/bs";
 
-const cardListMateri = ({ nama, user, deskripsi, id, slug, file }) => {
+const CardListMateri = ({ nama, user, deskripsi, id, slug, file }) => {
   const styles = style();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [showHapus, setShowHapus] = useState(false);
+  const handleCloseHapus = () => setShowHapus(false);
+  const handleShowHapus = () => setShowHapus(true);
+  const [showEdit, setShowEdit] = useState(false);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
 
   return (
     <Card>
-      <BrowserRouter className={styles.linkheaderCard}>
+      <div className={styles.linkheaderCard}>
         <Card.Header className={styles.cardContenHeader}>
           <Row>
             <Col sm={11}>
@@ -34,69 +53,200 @@ const cardListMateri = ({ nama, user, deskripsi, id, slug, file }) => {
                 key="left"
                 placement="left"
                 overlay={
-                  //   <Popover id={`popover-positioned-${placement}`}>
                   <Popover id="popover-positioned-left">
                     <Popover.Content>
-                      <Link className={styles.pop}>Hapus Materi</Link>
-                    </Popover.Content>
-                    <Popover.Content>
-                      <Link className={styles.pop}>Edit Materi</Link>
+                      <Link className={styles.pop} onClick={handleShowHapus}>
+                        Hapus Materi
+                      </Link>
                     </Popover.Content>
                   </Popover>
                 }
               >
                 <BiDotsVerticalRounded className={styles.DotsVerticalRounded} />
               </OverlayTrigger>
+              <Modal show={showHapus} onHide={handleCloseHapus}>
+                <Modal.Body>
+                  {/* <Form> */}
+                  <h5>
+                    Apakah anda yakin ingin mengeluarkan{" "}
+                    <b className={styles.bold}>{nama}</b> ?
+                  </h5>
+                  {/* </Form> */}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="light">Ya, Keluarkan</Button>
+                  <Button variant="primary" onClick={handleCloseHapus}>
+                    Batal
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Col>
           </Row>
         </Card.Header>
-      </BrowserRouter>
-      {deskripsi == 'null' ? null : <Card.Body>
-        <Card.Text className={styles.textContentCard}>
-          {deskripsi}
-        </Card.Text>
-        <Card.Text className={styles.textContentCard}>
-          <a href={file}>Download Materi</a>
-        </Card.Text>
-      </Card.Body>}
-      <Card.Footer className={styles.footerCard}>
-        <Row>
-          <Col sm={1}>
+      </div>
+      {deskripsi == "null" ? null : (
+        <Card.Body>
+          <Card.Text className={styles.textContentCard}>{deskripsi}</Card.Text>
+          <Card.Text className={styles.textContentCard}>
+            <a href={file}><BiDownload className={styles.iconDownload}/> Download Materi</a>
+          </Card.Text>
+        </Card.Body>
+      )}
+      <Card.Footer className={styles.footerCard} onClick={handleShow}>
+        <BsChatQuote className={styles.iconFooter} />
+        <Card.Text className={styles.textFooter}>8 Komentar</Card.Text>
+      </Card.Footer>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header>
+          {/* ini khusus post pertamanya */}
+          <div className={styles.flexModal}>
             <Image
               src="https://picsum.photos/200/300"
-              className={styles.imagesProfile}
+              className={styles.imagesHeader}
               roundedCircle
             />
-          </Col>
-          <Col sm={11}>
-            <Form className={styles.formInsertCode}>
-              <Row>
-                <Col sm={11}>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Control
-                      className={styles.inputComment}
-                      type="text"
-                      placeholder="Tambah komentar"
-                    />
-                  </Form.Group>
-                </Col>
-                <Col sm={1}>
-                  <Button type="submit" className={styles.buttonSendComment}>
-                    <BiSend className={styles.iconBtnSendComment} />
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
-      </Card.Footer>
+            <div className={styles.boxModal}>
+              <span className={styles.namaModalBody}>
+                Fikri Halim ch{" "}
+                <span className={styles.waktuModalBody}>
+                  (27/02/21 - 08:30)
+                </span>
+              </span>
+              <span className={styles.komenModalBody}>
+                ini komentarnya coba aja
+              </span>
+            </div>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          {/* ini semua komen */}
+          <div className={styles.flexModal}>
+            <Image
+              src="https://picsum.photos/200/300"
+              className={styles.imagesHeader}
+              roundedCircle
+            />
+            <div className={styles.boxModal}>
+              <span className={styles.namaModalBody}>
+                Fikri Halim ch{" "}
+                <span className={styles.waktuModalBody}>
+                  (27/02/21 - 08:30)
+                </span>
+              </span>
+              <span className={styles.komenModalBody}>balasan 1</span>
+            </div>
+          </div>
+          <div className={styles.flexModal}>
+            <Image
+              src="https://picsum.photos/200/300"
+              className={styles.imagesHeader}
+              roundedCircle
+            />
+            <div className={styles.boxModal}>
+              <span className={styles.namaModalBody}>
+                Fikri Halim ch{" "}
+                <span className={styles.waktuModalBody}>
+                  (27/02/21 - 08:30)
+                </span>
+              </span>
+              <span className={styles.komenModalBody}>balasan 2</span>
+            </div>
+          </div>
+
+          {/* ini khusus untuk yang mau nambah komentar */}
+          <div className={styles.flexModalKomen}>
+            <Image
+              src="https://picsum.photos/200/300"
+              className={styles.imagesHeader}
+              roundedCircle
+            />
+            <input
+              type="text"
+              placeholder="masukkan komentar"
+              className={styles.inputModal}
+            />
+            <button className={styles.buttonSend}>
+              <BiSend className={styles.iconSend} />
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className={styles.button} onClick={handleClose}>
+            Keluar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Card>
   );
 };
 
-export default cardListMateri;
+export default CardListMateri;
 
 const style = createUseStyles({
+  iconDownload:{
+fontSize: 25,
+marginRight: 5,
+  },
+  button: {
+    margin: 0,
+    backgroundColor: Color.primary,
+    fontWeight: "bold",
+  },
+  buttonSend: {
+    border: "none",
+    backgroundColor: "transparent",
+  },
+  iconSend: {
+    fontSize: 25,
+    color: Color.primary,
+    marginLeft: 10,
+  },
+  flexModal: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  flexModalKomen: {
+    display: "flex",
+    marginTop: 15,
+    paddingTop: 15,
+    alignItems: "center",
+    borderColor: Color.secondary,
+    borderTop: "1px solid #E2E2E2",
+  },
+  inputModal: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    color: Color.primary,
+    borderColor: Color.primary,
+    borderTop: "1px solid #E2E2E2",
+    borderRadius: 50,
+    flex: 1,
+  },
+  imagesHeader: {
+    width: 50,
+    height: 50,
+    marginRight: 20,
+  },
+  boxModal: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  namaModalBody: {
+    fontFamily: "DM Sans",
+    fontSize: 17,
+    color: Color.black,
+  },
+  waktuModalBody: {
+    fontSize: 13,
+    color: Color.blackDoff,
+  },
+  komenModalBody: {
+    marginTop: -5,
+    fontWeight: "bold",
+    fontSize: 17,
+    color: Color.primary,
+  },
   ViewContainer: {
     width: "73%",
     margin: "0 auto",
@@ -208,9 +358,12 @@ const style = createUseStyles({
     paddingBottom: 0,
   },
   footerCard: {
-    marginBottom: 0,
-    paddingBottom: 0,
-    backgroundColor: "transparent",
+    display: "flex",
+    // justifyContent: "center",
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   inputComment: {
     borderRadius: 35,
@@ -218,8 +371,7 @@ const style = createUseStyles({
     fontFamily: "DM Sans",
   },
   buttonSendComment: {
-    display: "block",
-    backgroundColor: "transparent",
+    backgroundColor: Color.secondary,
     border: "none",
     Color: Color.blackDoff,
     width: 0,
@@ -253,12 +405,30 @@ const style = createUseStyles({
       boxShadow: "none",
     },
   },
-  iconBtnSendComment: {
+  textFooter: {
+    color: Color.primary,
+    fontSize: 15,
+  },
+  iconFooter: {
+    color: Color.primary,
+    fontSize: 20,
+    marginRight: 5,
+  },
+  textCardTitle: {
+    fontFamily: "DM Sans",
+    fontSize: 17,
     color: Color.blackDoff,
-    fontSize: 23,
-    marginTop: "-10px",
-    marginRight: 30,
-    position: "relative",
-    right: 20,
+    letterSpacing: 0.4,
+    fontWeight: "600",
+    marginBottom: 0,
+  },
+  textCardPengampu: {
+    fontFamily: "DM Sans",
+    fontSize: 15,
+    color: Color.blackDoff,
+    letterSpacing: 0.4,
+    fontWeight: "500",
+    marginBottom: 0,
+    alignText: "center",
   },
 });
